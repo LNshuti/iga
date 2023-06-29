@@ -5,86 +5,80 @@
 //  Created by Leonce Nshuti on 6/29/23.
 //
 
-import SwiftUI
-import CoreData
+import UIKit
 
-struct ContentView: View {
-    @Environment(\.managedObjectContext) private var viewContext
+// Define a custom data structure for the items
+struct Item {
+    let name: String
+}
 
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
-        animation: .default)
-    private var items: FetchedResults<Item>
+// Create a ViewController to display the list of items
+class ViewController: UIViewController {
+    var items: [Item] = []
 
-    var body: some View {
-        NavigationView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
-                    } label: {
-                        Text(item.timestamp!, formatter: itemFormatter)
-                    }
-                }
-                .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-#if os(iOS)
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-#endif
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
-            Text("Select an item")
-        }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Set up the UI
+        let tableView = UITableView(frame: view.bounds, style: .plain)
+        tableView.dataSource = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        view.addSubview(tableView)
+        
+        // Add a button to add new items
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
+        navigationItem.rightBarButtonItem = addButton
     }
 
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+    @objc func addButtonTapped() {
+        // Show an alert to get the user's input
+        let alertController = UIAlertController(title: "Add Item", message: nil, preferredStyle: .alert)
+        alertController.addTextField { textField in
+            textField.placeholder = "Item Name"
+        }
+        let addAction = UIAlertAction(title: "Add", style: .default) { _ in
+            // Create a new item and add it to the list
+            if let itemName = alertController.textFields?.first?.text {
+                let newItem = Item(name: itemName)
+                self.items.append(newItem)
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
             }
         }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
+        alertController.addAction(addAction)
+        present(alertController, animated: true, completion: nil)
     }
 }
 
-private let itemFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
-    return formatter
-}()
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+// Implement UITableViewDataSource to populate the table view
+extension ViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return items.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let item = items[indexPath.row]
+        cell.textLabel?.text = item.name
+        return cell
     }
 }
+
+// Create an instance of ViewController and set it as the root view controller
+let viewController = ViewController()
+let navigationViewController = UINavigationController(rootViewController: viewController)
+
+// Create and configure a UIWindow to hold the view controller's view
+let window = UIWindow(frame: UIScreen.main.bounds)
+window.rootViewController = navigationViewController
+window.makeKeyAndVisible()
+
+// Run the app on a simulator
+let simulatorType = ProcessInfo().environment["SIMULATOR_MODEL_IDENTIFIER"] ?? "iPhone 11"
+let device = SimDeviceType.fromIdentifier(simulatorType)
+let runtime = SimRuntime.OSVersion.iOS.withBuildNumber("13.0")
+let simDevice = try SimDevice.bootedDevice(deviceName: device, runtime: runtime)
+let app = try simDevice!.installApp(atPath: "/path/to/your/app") // Replace "/path/to/your/app" with the path to your app's .app file
+try app.launchApp(with: nil)
+RunLoop.current.run()
