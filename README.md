@@ -11,7 +11,9 @@ Create a reusable IOS template following UX design best practices. The framework
 #### Metrics
 
 **1. Server Load**
+
 **2. Fraction of non-null outputs**
+
 **3. Fraction of missing input values**
 
 
