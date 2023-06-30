@@ -6,7 +6,7 @@ IGA is a robust, reusable iOS template focused on building a simple, yet powerfu
 
 * **AI-Powered** - The application is built with advanced AI capabilities, enabling it to provide interactive and personalized educational experiences.
 
-* **UX-Designed** - IGA adheres to the latest UX design best practices, ensuring a seamless and intuitive user experience.
+* **UX-Design** - IGA adheres to the latest UX design best practices, ensuring a seamless and intuitive user experience.
 
 * **Full-Stack** - The template comes with a full-stack implementation, including a robust backend and a responsive frontend. 
 
