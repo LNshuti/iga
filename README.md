@@ -26,4 +26,4 @@ IGA is a robust, reusable iOS template focused on building a simple, yet powerfu
 
 ## References
 
-1. How Instacart Ads Modularized data pipelines with lakehouse architecture and spark. https://tech.instacart.com/how-instacart-ads-modularized-data-pipelines-with-lakehouse-architecture-and-spark-e9863e28488d
+1. Devlina Das. How Instacart Ads Modularized data pipelines with lakehouse architecture and spark. https://tech.instacart.com/how-instacart-ads-modularized-data-pipelines-with-lakehouse-architecture-and-spark-e9863e28488d
