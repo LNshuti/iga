@@ -1,8 +1,8 @@
-# IGA
+## IGA
 
 IGA is a robust, reusable iOS template focused on building a simple, yet powerful AI-powered iOS app. It is designed with UX best practices in mind and serves as an excellent starting point for developing full-stack educational applications. 
 
-## Features
+### Features
 
 * **UX-Design** - IGA uses UX design best practices, ensuring a seamless and intuitive user experience.
 
@@ -10,15 +10,15 @@ IGA is a robust, reusable iOS template focused on building a simple, yet powerfu
 
 * **Reusable Template** - IGA can be easily tailored to fit the needs of different educational applications, making it a highly flexible and reusable template.
 
-### Backend Architecture
+#### Backend Architecture
 
 ![Backend Architecture](architecture/backend.png)
 
-### ETL Pipeline
+#### ETL Pipeline
 
 ![ETL Pipeline](architecture/etl.png)
 
-## Contributing
+### Contributing
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
