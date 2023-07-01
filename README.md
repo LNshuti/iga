@@ -10,6 +10,14 @@ IGA is a robust, reusable iOS template focused on building a simple, yet powerfu
 
 * **Reusable Template** - IGA can be easily tailored to fit the needs of different educational applications, making it a highly flexible and reusable template.
 
+### App requirements
+* Localisation
+* Playing audio and video
+* Access to user's contacts
+* Track the movement of the user's finger on screen
+* Track orientation and motion
+  
+
 #### Backend Architecture
 
 ![Backend Architecture](architecture/backend.png)
@@ -30,3 +38,4 @@ IGA is a robust, reusable iOS template focused on building a simple, yet powerfu
 ## References
 
 1. Devlina Das. How Instacart Ads Modularized data pipelines with lakehouse architecture and spark. https://tech.instacart.com/how-instacart-ads-modularized-data-pipelines-with-lakehouse-architecture-and-spark-e9863e28488d
+2. iPhone Application Development for Dummies. Neal Goldstein. 
