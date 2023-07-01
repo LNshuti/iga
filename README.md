@@ -14,6 +14,9 @@ IGA is a robust, reusable iOS template focused on building a simple, yet powerfu
 
 ![Backend Architecture](architecture/backend.png)
 
+### ETL Pipeline
+
+![ETL Pipeline](architecture/etl.png)
 
 ## Contributing
 
