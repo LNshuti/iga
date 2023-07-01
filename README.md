@@ -22,3 +22,8 @@ IGA is a robust, reusable iOS template focused on building a simple, yet powerfu
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
+
+
+## References
+
+1. How Instacart Ads Modularized data pipelines with lakehouse architecture and spark. https://tech.instacart.com/how-instacart-ads-modularized-data-pipelines-with-lakehouse-architecture-and-spark-e9863e28488d
