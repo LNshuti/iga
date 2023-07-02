@@ -74,7 +74,7 @@
                     <mxGeometry x="50" y="290" width="60" height="30" as="geometry"/>
                 </mxCell>
                 <mxCell id="23" value="Kafka delta sync" style="text;html=1;strokeColor=#23445d;fillColor=#bac8d3;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-                    <mxGeometry x="450" y="240" width="100" height="30" as="geometry"/>
+                    <mxGeometry x="440" y="240" width="120" height="30" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
