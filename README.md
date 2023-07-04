@@ -8,7 +8,7 @@ IGA is a robust, reusable iOS template focused on building a simple, yet powerfu
 
 * **Full-Stack** - The template comes with a full-stack implementation, including a robust backend and a responsive frontend. 
 
-* **Reusable Template** - IGA can be easily tailored to fit the needs of different educational applications, making it a highly flexible and reusable template.
+* **Reusable Template** - IGA can be easily tailored to fit the needs of different applications, making it a highly reusable template.
 
 ### App requirements
 * Localisation
