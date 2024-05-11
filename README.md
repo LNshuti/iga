@@ -1,6 +1,6 @@
 ## IGA
 
-IGA is a typescript AI-powered iOS app powered by Groq. It is designed with UX best practices in mind and serves as an excellent starting point for developing full-stack applications. 
+IGA is a typescript iOS/Android app powered by Groq. It is designed with UX best practices in mind and serves as an excellent starting point for developing a full-stack ai-agent application. 
 
 ### Features
 
