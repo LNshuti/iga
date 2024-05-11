@@ -1,6 +1,6 @@
 ## IGA
 
-IGA is a robust, reusable iOS template focused on building a simple, yet powerful AI-powered iOS app. It is designed with UX best practices in mind and serves as an excellent starting point for developing full-stack applications. 
+IGA is a typescript AI-powered iOS app powered by Groq. It is designed with UX best practices in mind and serves as an excellent starting point for developing full-stack applications. 
 
 ### Features
 
