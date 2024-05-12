@@ -1,7 +1,8 @@
 ## IGA
 
-IGA is a typescript iOS/Android app powered by Groq. It is designed with UX best practices in mind and serves as an excellent starting point for developing a full-stack ai-agent application. 
+IGA is a typescript iOS/Android app powered by Groq. It is designed with User experience best practices in mind and can serve as a starting template for developing a full-stack ai-agent application. A key feature of any delightful application is speed. This app uses Groq, a Language Processing Unit framework for ultra-fast inference on language models. 
 
+We follow good data engineering principles when designing the pipelines that the agent relies on. For handling structured data, we use the Instructor [framework](https://github.com/jxnl/instructor).
 ### Features
 
 * **UX-Design** - IGA uses UX design best practices, ensuring a seamless and intuitive user experience.
@@ -42,4 +43,6 @@ IGA is a typescript iOS/Android app powered by Groq. It is designed with UX best
 ## References
 
 1. Devlina Das. How Instacart Ads Modularized data pipelines with lakehouse architecture and spark. https://tech.instacart.com/how-instacart-ads-modularized-data-pipelines-with-lakehouse-architecture-and-spark-e9863e28488d
-2. iPhone Application Development for Dummies. Neal Goldstein. 
+2. iPhone Application Development for Dummies. Neal Goldstein.
+3. Shane Hender. Moving from DynamoDB to tiered storage with MySQL+S3
+]
