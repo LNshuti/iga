@@ -4,7 +4,7 @@ IGA is a typescript iOS/Android app powered by Groq. It is designed with User ex
 
 ### Featur
 
-#### Backend Architecture
+#### Architecture
 
 ![Backend Architecture](architecture/backend.png)
 
