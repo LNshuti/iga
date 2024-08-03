@@ -1,6 +1,6 @@
 ## IGA
 
-IGA is a typescript iOS/Android app powered by Groq. A key feature of any delightful application is speed. This app uses Groq for ultra-fast inference on finetuned llama-3.1-405B using modal.com.  
+IGA is a typescript iOS/Android app powered by Groq. This app uses Groq for ultra-fast inference on finetuned llama-3.1-405B using modal.com.  
 
 #### Architecture
 
