@@ -1,6 +1,6 @@
-## IGA
+## IGISHA
 
-IGA is a typescript iOS/Android app powered by Groq. This app uses Groq for ultra-fast inference on finetuned llama-3.1-405B using modal.com.  
+IGISHA is a typescript iOS app powered by Groq. This app uses cartesia.ai on Groq for ultra-fast inference on finetuned llama-3.1-405B using modal.com.  
 
 #### Architecture
 
