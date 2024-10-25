@@ -1,0 +1,4 @@
+template-file-path: template.yaml
+parameters:
+  LangchainAPIKey: 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
+tags: {}
