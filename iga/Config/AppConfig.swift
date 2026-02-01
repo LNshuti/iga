@@ -9,15 +9,8 @@ enum AppConfig {
     // MARK: - API Configuration
 
     /// Base URL for Cerebras inference API
-    static var cerebrasBaseURL: URL {
-        guard let urlString = Bundle.main.infoDictionary?["CEREBRAS_API_BASE_URL"] as? String,
-              !urlString.isEmpty,
-              let url = URL(string: urlString) else {
-            // Fallback for development - will fail gracefully
-            return URL(string: "https://api.cerebras.ai/v1")!
-        }
-        return url
-    }
+    /// Hardcoded since this is not a secret and xcconfig URL escaping is problematic
+    static let cerebrasBaseURL: URL = URL(string: "https://api.cerebras.ai/v1")!
 
     /// API key for Cerebras authentication
     /// Returns nil if not configured, allowing graceful degradation
