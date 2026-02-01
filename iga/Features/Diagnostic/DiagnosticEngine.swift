@@ -98,20 +98,23 @@ actor DiagnosticEngine {
 
     // MARK: - Answer Processing
 
-    /// Process an answer and update ability estimates
+    /// Process an answer and return updated ability estimates
+    /// Returns the updated progress dictionary
     func processAnswer(
-        progress: inout [String: SubskillProgress],
+        progress: [String: SubskillProgress],
         question: Question,
         attempt: AttemptSummary,
         allQuestions: [String: Question]
-    ) async {
+    ) async -> [String: SubskillProgress] {
+        var updatedProgress = progress
+
         // Update each subskill the question tests
         let subskillsToUpdate = question.subskillIDs.isEmpty
             ? [question.primarySubskill]
             : question.subskillIDs
 
         for subskillID in subskillsToUpdate {
-            var subskillProgress = progress[subskillID] ?? SubskillProgress()
+            var subskillProgress = updatedProgress[subskillID] ?? SubskillProgress()
 
             // Add attempt
             subskillProgress.attempts.append(attempt)
@@ -126,8 +129,10 @@ actor DiagnosticEngine {
             subskillProgress.currentTheta = theta
             subskillProgress.currentSE = se
 
-            progress[subskillID] = subskillProgress
+            updatedProgress[subskillID] = subskillProgress
         }
+
+        return updatedProgress
     }
 
     // MARK: - Completion Check

@@ -148,8 +148,8 @@ final class DiagnosticViewModel {
         seenQuestionIDs.insert(question.id)
 
         // Process the answer
-        await engine.processAnswer(
-            progress: &progress,
+        progress = await engine.processAnswer(
+            progress: progress,
             question: question,
             attempt: attemptSummary,
             allQuestions: allQuestions
@@ -235,8 +235,8 @@ final class DiagnosticViewModel {
 
         seenQuestionIDs.insert(question.id)
 
-        await engine.processAnswer(
-            progress: &progress,
+        progress = await engine.processAnswer(
+            progress: progress,
             question: question,
             attempt: attemptSummary,
             allQuestions: allQuestions

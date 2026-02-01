@@ -33,10 +33,25 @@ final class DataStore {
             DiagnosticResult.self
         ])
 
-        let configuration = ModelConfiguration(
-            schema: schema,
-            isStoredInMemoryOnly: inMemory
-        )
+        // Use versioned store name to handle schema migrations cleanly
+        // Bump this version when schema changes significantly
+        let storeName = "IGA_v2.store"
+
+        let configuration: ModelConfiguration
+        if inMemory {
+            configuration = ModelConfiguration(
+                schema: schema,
+                isStoredInMemoryOnly: true
+            )
+        } else {
+            // Use custom store URL with version
+            let url = URL.applicationSupportDirectory
+                .appending(path: storeName)
+            configuration = ModelConfiguration(
+                schema: schema,
+                url: url
+            )
+        }
 
         modelContainer = try ModelContainer(for: schema, configurations: [configuration])
         modelContext = modelContainer.mainContext
