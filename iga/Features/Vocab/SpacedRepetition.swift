@@ -31,52 +31,81 @@ actor SpacedRepetitionEngine {
 
     // MARK: - Review Processing
 
-    /// Process a review for a vocabulary word
+    /// Process a review for a vocabulary word using FSRS-inspired algorithm
     /// - Parameters:
     ///   - word: The word being reviewed
     ///   - quality: Quality of recall (0-3)
     /// - Returns: The updated word with new scheduling
     func processReview(word: VocabWord, quality: ReviewQuality) -> VocabWord {
-        // Update repetition count
-        var newRepetitions = word.repetitions
-        var newEaseFactor = word.easeFactor
-        var newInterval = word.interval
+        let isCorrect = quality.rawValue >= 2
 
-        if quality.rawValue >= 2 {
-            // Correct response
-            switch word.repetitions {
-            case 0:
-                newInterval = 1 // 1 hour
-            case 1:
-                newInterval = 6 // 6 hours
-            default:
-                // Calculate new interval using ease factor
-                let hours = Double(word.interval) * word.easeFactor
-                newInterval = min(Int(hours), maxIntervalDays * 24)
+        // Update review count
+        word.reviewCount += 1
+
+        if isCorrect {
+            // Successful recall
+            word.repetitions += 1
+
+            // Update stability (FSRS-inspired)
+            let stabilityMultiplier = calculateStabilityMultiplier(quality: quality, difficulty: word.difficulty)
+            if word.stability == 0 {
+                // First review - set initial stability based on quality
+                word.stability = quality == .easy ? 4.0 : (quality == .good ? 1.0 : 0.5)
+            } else {
+                // Increase stability based on current stability and quality
+                word.stability = min(word.stability * stabilityMultiplier, Double(maxIntervalDays))
             }
-            newRepetitions += 1
+
+            // Update difficulty (decrease for easier recall)
+            let difficultyDelta = 0.1 * (Double(quality.rawValue) - 2.0)
+            word.difficulty = max(0.0, min(1.0, word.difficulty - difficultyDelta))
+
+            // Calculate interval in hours
+            let intervalDays = word.stability * 0.9  // Target 90% retrievability
+            word.interval = max(1, Int(intervalDays * 24))
+
         } else {
-            // Incorrect response - reset
-            newRepetitions = 0
-            newInterval = 1
+            // Failed recall - lapse
+            word.lapses += 1
+            word.repetitions = 0
+
+            // Reduce stability significantly on lapse
+            word.stability = max(0.5, word.stability * 0.2)
+
+            // Increase difficulty
+            word.difficulty = min(1.0, word.difficulty + 0.2)
+
+            // Short relearning interval
+            word.interval = quality == .forgot ? 1 : 4  // 1 or 4 hours
         }
 
-        // Update ease factor based on quality
+        // Update ease factor (SM-2 compatibility)
         let q = Double(quality.rawValue)
-        newEaseFactor = word.easeFactor + (0.1 - (3 - q) * (0.08 + (3 - q) * 0.02))
-        newEaseFactor = max(minEaseFactor, newEaseFactor)
+        word.easeFactor = max(minEaseFactor, word.easeFactor + (0.1 - (3 - q) * (0.08 + (3 - q) * 0.02)))
 
         // Calculate next review date
-        let nextReview = Date().addingTimeInterval(Double(newInterval) * 3600)
-
-        // Update word
-        word.repetitions = newRepetitions
-        word.easeFactor = newEaseFactor
-        word.interval = newInterval
         word.lastReviewed = Date()
-        word.nextReview = nextReview
+        word.nextReview = Date().addingTimeInterval(Double(word.interval) * 3600)
 
         return word
+    }
+
+    /// Calculate stability multiplier based on quality and difficulty
+    private func calculateStabilityMultiplier(quality: ReviewQuality, difficulty: Double) -> Double {
+        let baseMultiplier: Double
+        switch quality {
+        case .easy:
+            baseMultiplier = 3.5
+        case .good:
+            baseMultiplier = 2.5
+        case .hard:
+            baseMultiplier = 1.3
+        case .forgot:
+            baseMultiplier = 0.2
+        }
+
+        // Adjust by difficulty (harder items grow stability more slowly)
+        return baseMultiplier * (1.0 - difficulty * 0.3)
     }
 
     // MARK: - Due Words

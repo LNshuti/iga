@@ -39,6 +39,12 @@ final class VocabWord {
     var interval: Int // in hours
     var repetitions: Int
 
+    /// FSRS-inspired stability and difficulty tracking
+    var stability: Double  // Memory stability (days until 90% retrievability)
+    var difficulty: Double // Item difficulty (0.0 = easy, 1.0 = hard)
+    var lapses: Int       // Number of times forgotten
+    var reviewCount: Int  // Total number of reviews
+
     init(
         id: String = UUID().uuidString,
         headword: String,
@@ -52,7 +58,11 @@ final class VocabWord {
         nextReview: Date? = nil,
         easeFactor: Double = 2.5,
         interval: Int = 0,
-        repetitions: Int = 0
+        repetitions: Int = 0,
+        stability: Double = 0.0,
+        difficulty: Double = 0.3,
+        lapses: Int = 0,
+        reviewCount: Int = 0
     ) {
         self.id = id
         self.headword = headword
@@ -67,6 +77,10 @@ final class VocabWord {
         self.easeFactor = easeFactor
         self.interval = interval
         self.repetitions = repetitions
+        self.stability = stability
+        self.difficulty = difficulty
+        self.lapses = lapses
+        self.reviewCount = reviewCount
     }
 
     /// Formatted part of speech display
@@ -84,6 +98,62 @@ final class VocabWord {
     var isDueForReview: Bool {
         guard let nextReview else { return true }
         return nextReview <= Date()
+    }
+
+    /// Current retrievability (0.0 to 1.0) based on time elapsed
+    var retrievability: Double {
+        guard let lastReviewed = lastReviewed, stability > 0 else {
+            return repetitions > 0 ? 0.9 : 0.0
+        }
+
+        let daysSinceReview = Date().timeIntervalSince(lastReviewed) / 86400
+        // FSRS retrievability formula: R = (1 + t/S)^-1
+        return pow(1 + daysSinceReview / stability, -1)
+    }
+
+    /// Learning status based on review history
+    var learningStatus: VocabLearningStatus {
+        if repetitions == 0 {
+            return .new
+        } else if retrievability < 0.5 {
+            return .relearning
+        } else if repetitions < 5 || stability < 21 {
+            return .learning
+        } else {
+            return .mastered
+        }
+    }
+
+    /// Days until optimal review (negative if overdue)
+    var daysUntilReview: Int? {
+        guard let nextReview = nextReview else { return nil }
+        return Int(nextReview.timeIntervalSince(Date()) / 86400)
+    }
+}
+
+/// Learning status for vocabulary words
+enum VocabLearningStatus: String, CaseIterable {
+    case new = "New"
+    case learning = "Learning"
+    case relearning = "Relearning"
+    case mastered = "Mastered"
+
+    var color: String {
+        switch self {
+        case .new: return "gray"
+        case .learning: return "blue"
+        case .relearning: return "orange"
+        case .mastered: return "green"
+        }
+    }
+
+    var icon: String {
+        switch self {
+        case .new: return "sparkles"
+        case .learning: return "brain"
+        case .relearning: return "arrow.counterclockwise"
+        case .mastered: return "checkmark.seal.fill"
+        }
     }
 }
 

@@ -27,6 +27,7 @@ final class TutorChatViewModel {
 
     var currentQuestion: Question?
     private var conversationHistory: [ChatMessage] = []
+    private var masteryContext: MasteryContext?
 
     // MARK: - Initialization
 
@@ -214,6 +215,9 @@ final class TutorChatViewModel {
 
             conversationHistory = storedMessages.map { $0.toChatMessage() }
 
+            // Load mastery context for personalized advice
+            await loadMasteryContext()
+
             // Add welcome if no history
             if messages.isEmpty {
                 startNewConversation()
@@ -222,6 +226,84 @@ final class TutorChatViewModel {
             startNewConversation()
         }
     }
+
+    /// Load mastery context for personalized tutoring
+    private func loadMasteryContext() async {
+        guard let store = dataStore else { return }
+
+        do {
+            let masteryStates = try store.fetchOrCreateAllMasteryStates()
+            let userProgress = try store.fetchOrCreateUserProgress()
+            let diagnosticResult = try store.fetchLatestDiagnosticResult()
+
+            // Find weakest subskills
+            let weakest = masteryStates
+                .sorted { $0.pKnown < $1.pKnown }
+                .prefix(3)
+                .compactMap { Subskill(rawValue: $0.subskillID)?.name }
+
+            // Find strongest subskills
+            let strongest = masteryStates
+                .sorted { $0.pKnown > $1.pKnown }
+                .prefix(2)
+                .compactMap { Subskill(rawValue: $0.subskillID)?.name }
+
+            // Calculate overall accuracy
+            let overallAccuracy = userProgress.totalAttempted > 0
+                ? Double(userProgress.totalCorrect) / Double(userProgress.totalAttempted)
+                : 0
+
+            masteryContext = MasteryContext(
+                weakestSubskills: Array(weakest),
+                strongestSubskills: Array(strongest),
+                overallAccuracy: overallAccuracy,
+                estimatedQuantScore: diagnosticResult?.estimatedQuantScore,
+                estimatedVerbalScore: diagnosticResult?.estimatedVerbalScore,
+                totalQuestionsAttempted: userProgress.totalAttempted,
+                currentStreak: userProgress.currentStreak
+            )
+        } catch {
+            masteryContext = nil
+        }
+    }
+
+    /// Generate context string for AI prompt
+    private func buildContextString() -> String? {
+        guard let context = masteryContext else { return nil }
+
+        var parts: [String] = []
+
+        if !context.weakestSubskills.isEmpty {
+            parts.append("Areas needing work: \(context.weakestSubskills.joined(separator: ", "))")
+        }
+
+        if !context.strongestSubskills.isEmpty {
+            parts.append("Strong areas: \(context.strongestSubskills.joined(separator: ", "))")
+        }
+
+        if context.totalQuestionsAttempted > 0 {
+            parts.append("Overall accuracy: \(Int(context.overallAccuracy * 100))% across \(context.totalQuestionsAttempted) questions")
+        }
+
+        if let quant = context.estimatedQuantScore, let verbal = context.estimatedVerbalScore {
+            parts.append("Estimated scores: Quant \(quant), Verbal \(verbal)")
+        }
+
+        return parts.isEmpty ? nil : parts.joined(separator: ". ")
+    }
+}
+
+// MARK: - Mastery Context
+
+/// Context about user's current mastery for personalized tutoring
+struct MasteryContext {
+    let weakestSubskills: [String]
+    let strongestSubskills: [String]
+    let overallAccuracy: Double
+    let estimatedQuantScore: Int?
+    let estimatedVerbalScore: Int?
+    let totalQuestionsAttempted: Int
+    let currentStreak: Int
 }
 
 // MARK: - Preview Support
