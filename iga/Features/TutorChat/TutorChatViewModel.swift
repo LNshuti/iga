@@ -153,18 +153,46 @@ final class TutorChatViewModel {
     // MARK: - Private Helpers
 
     private func buildAPIMessages(userMessage: String) -> [ChatMessage] {
+        let context = buildTutorContext()
+
         if let question = currentQuestion {
-            return TutorPromptBuilder.buildQuestionDiscussion(
-                question: question,
-                userQuery: userMessage,
-                previousMessages: conversationHistory
+            var contextWithQuestion = context
+            contextWithQuestion.currentQuestion = question
+            contextWithQuestion.section = question.section
+
+            return TutorPromptBuilder.buildMessages(
+                conversationHistory: conversationHistory,
+                userMessage: userMessage,
+                context: contextWithQuestion
             )
         } else {
             return TutorPromptBuilder.buildMessages(
                 conversationHistory: conversationHistory,
-                userMessage: userMessage
+                userMessage: userMessage,
+                context: context
             )
         }
+    }
+
+    /// Build TutorContext from mastery data
+    private func buildTutorContext() -> TutorContext {
+        guard let context = masteryContext else {
+            return TutorContext()
+        }
+
+        return TutorContext(
+            currentQuestion: currentQuestion,
+            section: nil,
+            recentTopics: nil,
+            userStrengths: context.strongestSubskills,
+            userWeaknesses: context.weakestSubskills,
+            estimatedQuantScore: context.estimatedQuantScore,
+            estimatedVerbalScore: context.estimatedVerbalScore,
+            overallAccuracy: context.overallAccuracy,
+            totalQuestionsAttempted: context.totalQuestionsAttempted,
+            commonErrorTypes: context.commonErrorTypes,
+            currentStreak: context.currentStreak
+        )
     }
 
     private func updateLastMessage(content: String, isStreaming: Bool) {
@@ -253,6 +281,20 @@ final class TutorChatViewModel {
                 ? Double(userProgress.totalCorrect) / Double(userProgress.totalAttempted)
                 : 0
 
+            // Find common error types from mistake journal
+            var commonErrorTypes: [ErrorType]? = nil
+            if let errorStats = try? store.calculateErrorStats(),
+               errorStats.totalErrors > 0 {
+                // Get top 2 most common error types
+                let topErrors = errorStats.byType
+                    .sorted { $0.value > $1.value }
+                    .prefix(2)
+                    .map { $0.key }
+                if !topErrors.isEmpty {
+                    commonErrorTypes = Array(topErrors)
+                }
+            }
+
             masteryContext = MasteryContext(
                 weakestSubskills: Array(weakest),
                 strongestSubskills: Array(strongest),
@@ -260,7 +302,8 @@ final class TutorChatViewModel {
                 estimatedQuantScore: diagnosticResult?.estimatedQuantScore,
                 estimatedVerbalScore: diagnosticResult?.estimatedVerbalScore,
                 totalQuestionsAttempted: userProgress.totalAttempted,
-                currentStreak: userProgress.currentStreak
+                currentStreak: userProgress.currentStreak,
+                commonErrorTypes: commonErrorTypes
             )
         } catch {
             masteryContext = nil
@@ -304,6 +347,7 @@ struct MasteryContext {
     let estimatedVerbalScore: Int?
     let totalQuestionsAttempted: Int
     let currentStreak: Int
+    let commonErrorTypes: [ErrorType]?
 }
 
 // MARK: - Preview Support

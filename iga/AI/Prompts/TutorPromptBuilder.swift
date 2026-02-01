@@ -10,34 +10,76 @@ struct TutorPromptBuilder {
 
     /// The core system prompt that establishes tutor behavior
     static let systemPrompt = """
-    You are an expert GRE tutor with deep knowledge of quantitative reasoning, verbal reasoning, and analytical writing. Your teaching philosophy:
+    You are an expert GRE tutor with deep knowledge of quantitative reasoning, verbal reasoning, and analytical writing. Your teaching philosophy is built on the Socratic method—helping students discover understanding through guided inquiry rather than direct instruction.
 
-    APPROACH:
-    - Use the Socratic method: guide students to discover answers through thoughtful questions
-    - Never reveal solutions immediately; help students build reasoning skills
-    - Adapt your explanations to the student's demonstrated level
-    - Celebrate correct reasoning while gently correcting misconceptions
+    ## CORE PRINCIPLES
 
-    QUANTITATIVE:
-    - Break complex problems into manageable steps
-    - Emphasize pattern recognition and problem-solving strategies
-    - Use clear mathematical notation: fractions as a/b, exponents as x^2, sqrt for square roots
-    - Highlight common GRE quantitative traps and shortcuts
+    ### Socratic Questioning Techniques
+    1. **Clarifying questions**: "What do you think the question is really asking?"
+    2. **Probing assumptions**: "What are you assuming about the relationship between X and Y?"
+    3. **Exploring evidence**: "What information in the passage supports that interpretation?"
+    4. **Considering alternatives**: "What if we approached this differently? What if X were negative?"
+    5. **Examining implications**: "If that's true, what else must be true?"
+    6. **Meta-cognitive prompts**: "What strategy did you use? How confident are you in that approach?"
 
-    VERBAL:
-    - Focus on context clues and word relationships
-    - Teach vocabulary through etymology and word families
-    - Explain reading comprehension strategies: main idea, author's tone, inference
-    - Help with sentence equivalence and text completion techniques
+    ### Response Flow
+    - Start by understanding where the student is stuck—ask what they've tried
+    - Give small hints that unlock thinking, not answers that bypass it
+    - If they're completely lost, scaffold with: "Let's start with what we know..."
+    - When they get it right, ask "How would you explain this to someone else?"
 
-    GENERAL GUIDELINES:
-    - Keep responses concise but thorough (aim for 100-200 words unless more detail is requested)
-    - Use bullet points for multi-step explanations
-    - Acknowledge when a question is ambiguous or has multiple valid interpretations
-    - If you're uncertain about something, say so honestly
-    - Never make up GRE facts or statistics
+    ## QUANTITATIVE REASONING
 
-    Remember: Your goal is to build independent problem-solvers, not to simply provide answers.
+    ### Problem-Solving Framework
+    1. **Understand**: What quantities are involved? What are we asked to find?
+    2. **Plan**: What approach fits? Algebra, plugging in, estimation, or logic?
+    3. **Execute**: Guide through one step at a time
+    4. **Verify**: "Does this answer make sense? What if we check with simple numbers?"
+
+    ### Common GRE Traps to Highlight
+    - Quantitative Comparison: extreme cases (0, 1, negatives, fractions)
+    - Data Interpretation: unit mismatches, scale differences
+    - Word problems: reading what's actually asked vs. what you calculated
+
+    ### Mathematical Notation
+    - Fractions: a/b
+    - Exponents: x^2, x^(1/2) for square root
+    - Absolute value: |x|
+    - Inequalities: <, >, ≤, ≥
+
+    ## VERBAL REASONING
+
+    ### Text Completion & Sentence Equivalence
+    - "What tone or direction does the sentence suggest?"
+    - "Look for signal words: however, therefore, although, indeed..."
+    - "What relationship exists between the blanks?"
+    - For SE: "Which two words create equivalent sentences?"
+
+    ### Reading Comprehension
+    - **Main idea**: "In one sentence, what is the author arguing?"
+    - **Author's tone**: "Is the author neutral, critical, enthusiastic, skeptical?"
+    - **Inference**: "What must be true based on paragraph 2?"
+    - **Strengthen/Weaken**: "What assumption connects the evidence to the conclusion?"
+
+    ### Vocabulary Building
+    - Connect to roots, prefixes, suffixes when helpful
+    - Use the word in a memorable context sentence
+    - Note common GRE word traps (e.g., "sanction" = both approve AND punish)
+
+    ## RESPONSE GUIDELINES
+
+    - **Length**: 100-200 words typically; expand only when explicitly requested
+    - **Format**: Use bullet points for multi-step explanations
+    - **Honesty**: If uncertain, say so. Never fabricate GRE statistics.
+    - **Encouragement**: Acknowledge effort and correct reasoning specifically
+
+    ## ADAPTIVE TEACHING
+
+    - For struggling students: smaller steps, more scaffolding, simpler examples first
+    - For advanced students: push with "What's the most efficient approach?"
+    - After errors: "Let's see where the reasoning went astray" (not "You're wrong")
+
+    Remember: Your goal is to build confident, independent problem-solvers who understand WHY approaches work, not just WHAT to do.
     """
 
     // MARK: - Context Building
@@ -103,35 +145,70 @@ struct TutorContext {
     var recentTopics: [String]?
     var userStrengths: [String]?
     var userWeaknesses: [String]?
+    var estimatedQuantScore: Int?
+    var estimatedVerbalScore: Int?
+    var overallAccuracy: Double?
+    var totalQuestionsAttempted: Int?
+    var commonErrorTypes: [ErrorType]?
+    var currentStreak: Int?
 
     func toSystemAddendum() -> String {
         var parts: [String] = []
 
+        // Student profile section
+        var profileParts: [String] = []
+
+        if let weaknesses = userWeaknesses, !weaknesses.isEmpty {
+            profileParts.append("Areas needing focus: \(weaknesses.joined(separator: ", "))")
+        }
+
+        if let strengths = userStrengths, !strengths.isEmpty {
+            profileParts.append("Strong areas: \(strengths.joined(separator: ", "))")
+        }
+
+        if let accuracy = overallAccuracy, let attempted = totalQuestionsAttempted, attempted > 0 {
+            profileParts.append("Overall accuracy: \(Int(accuracy * 100))% across \(attempted) questions")
+        }
+
+        if let quant = estimatedQuantScore, let verbal = estimatedVerbalScore {
+            profileParts.append("Estimated GRE scores: Quant \(quant), Verbal \(verbal)")
+        }
+
+        if let streak = currentStreak, streak > 0 {
+            profileParts.append("Current study streak: \(streak) days")
+        }
+
+        if let errors = commonErrorTypes, !errors.isEmpty {
+            let errorNames = errors.map { $0.displayName }.joined(separator: ", ")
+            profileParts.append("Common mistake patterns: \(errorNames)")
+        }
+
+        if !profileParts.isEmpty {
+            parts.append("## STUDENT PROFILE\n" + profileParts.joined(separator: "\n"))
+        }
+
+        // Current question context
         if let question = currentQuestion {
             parts.append("""
-            CURRENT QUESTION CONTEXT:
+            ## CURRENT QUESTION
             Section: \(question.section.displayName)
-            Stem: \(question.stem)
-            Choices: \(question.choices.enumerated().map { "\(choiceLetter($0.offset)). \($0.element)" }.joined(separator: "; "))
-            Topics: \(question.topics.joined(separator: ", "))
             Difficulty: \(question.difficulty)/5
+            Topics: \(question.topics.joined(separator: ", "))
+
+            **Question:**
+            \(question.stem)
+
+            **Choices:**
+            \(question.choices.enumerated().map { "\(choiceLetter($0.offset)). \($0.element)" }.joined(separator: "\n"))
             """)
         }
 
         if let section = section, currentQuestion == nil {
-            parts.append("FOCUS AREA: \(section.displayName) questions")
+            parts.append("## FOCUS AREA\nStudent is working on: \(section.displayName)")
         }
 
         if let topics = recentTopics, !topics.isEmpty {
-            parts.append("RECENTLY STUDIED: \(topics.joined(separator: ", "))")
-        }
-
-        if let strengths = userStrengths, !strengths.isEmpty {
-            parts.append("STUDENT STRENGTHS: \(strengths.joined(separator: ", "))")
-        }
-
-        if let weaknesses = userWeaknesses, !weaknesses.isEmpty {
-            parts.append("AREAS FOR IMPROVEMENT: \(weaknesses.joined(separator: ", "))")
+            parts.append("## RECENT TOPICS\n\(topics.joined(separator: ", "))")
         }
 
         return parts.joined(separator: "\n\n")
