@@ -7,14 +7,30 @@ import SwiftUI
 /// Main view for GRE practice sessions
 struct PracticeView: View {
     @State private var viewModel: PracticeViewModel
+    private let subskillFilter: String?
+    private let autoStart: Bool
 
     init(viewModel: PracticeViewModel) {
         _viewModel = State(initialValue: viewModel)
+        self.subskillFilter = nil
+        self.autoStart = false
     }
 
     @MainActor
     init() {
         _viewModel = State(initialValue: PracticeViewModel())
+        self.subskillFilter = nil
+        self.autoStart = false
+    }
+
+    /// Initialize with a specific subskill to practice
+    @MainActor
+    init(subskillFilter: String) {
+        let vm = PracticeViewModel()
+        vm.subskillFilter = subskillFilter
+        _viewModel = State(initialValue: vm)
+        self.subskillFilter = subskillFilter
+        self.autoStart = true
     }
 
     var body: some View {
@@ -32,9 +48,22 @@ struct PracticeView: View {
                     sessionSetupView
                 }
             }
-            .navigationTitle("Practice")
+            .navigationTitle(navigationTitle)
             .navigationBarTitleDisplayMode(.inline)
         }
+        .task {
+            if autoStart {
+                await viewModel.startSession()
+            }
+        }
+    }
+
+    private var navigationTitle: String {
+        if let filter = subskillFilter,
+           let subskill = Subskill(rawValue: filter) {
+            return "Practice: \(subskill.shortName)"
+        }
+        return "Practice"
     }
 
     // MARK: - Session Setup

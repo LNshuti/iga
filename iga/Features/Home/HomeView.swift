@@ -181,6 +181,9 @@ struct StatsView: View {
             // Diagnostic card
             diagnosticCard(progress)
 
+            // Quick access links
+            quickAccessSection
+
             // Overall stats card
             VStack(spacing: Theme.Spacing.md) {
                 HStack {
@@ -352,6 +355,31 @@ struct StatsView: View {
         isLoading = false
     }
 
+    /// Quick access navigation section
+    private var quickAccessSection: some View {
+        HStack(spacing: Theme.Spacing.md) {
+            NavigationLink {
+                MasteryDashboardView()
+            } label: {
+                QuickAccessCard(
+                    icon: "chart.bar.fill",
+                    title: "Skill Mastery",
+                    color: Theme.Colors.quant
+                )
+            }
+
+            NavigationLink {
+                StudyPlanView()
+            } label: {
+                QuickAccessCard(
+                    icon: "calendar",
+                    title: "Study Plan",
+                    color: Theme.Colors.verbal
+                )
+            }
+        }
+    }
+
     /// Diagnostic status card
     private func diagnosticCard(_ progress: UserProgress) -> some View {
         VStack(spacing: Theme.Spacing.md) {
@@ -433,6 +461,30 @@ struct StatsView: View {
             }
         }
         .cardStyle()
+    }
+}
+
+// MARK: - Quick Access Card
+
+struct QuickAccessCard: View {
+    let icon: String
+    let title: String
+    let color: Color
+
+    var body: some View {
+        VStack(spacing: Theme.Spacing.sm) {
+            Image(systemName: icon)
+                .font(.title2)
+                .foregroundStyle(color)
+
+            Text(title)
+                .font(Theme.Typography.caption)
+                .foregroundStyle(.primary)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(Theme.Spacing.md)
+        .background(Theme.Colors.secondaryBackground)
+        .cornerRadius(Theme.CornerRadius.medium)
     }
 }
 
