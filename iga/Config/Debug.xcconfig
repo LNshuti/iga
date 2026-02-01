@@ -1,0 +1,12 @@
+// IGA/Config/Debug.xcconfig
+//
+// Debug build configuration
+// Include secrets (which should be gitignored)
+
+#include? "Secrets.xcconfig"
+
+// Fallback values for CI/testing (non-functional)
+CEREBRAS_API_BASE_URL = $(CEREBRAS_API_BASE_URL:default=https://api.example.com/v1)
+CEREBRAS_API_KEY = $(CEREBRAS_API_KEY:default=)
+TEXT_MODEL_ID = $(TEXT_MODEL_ID:default=llama3.1-70b)
+EMBEDDING_MODEL_ID = $(EMBEDDING_MODEL_ID:default=text-embedding)

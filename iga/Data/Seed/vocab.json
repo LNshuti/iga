@@ -1,0 +1,802 @@
+[
+  {
+    "id": "v-0001",
+    "headword": "ephemeral",
+    "pos": "adjective",
+    "definition": "lasting for a very short time",
+    "example": "The ephemeral beauty of cherry blossoms draws millions of visitors each spring.",
+    "synonyms": ["fleeting", "transient", "momentary", "brief", "short-lived"]
+  },
+  {
+    "id": "v-0002",
+    "headword": "ubiquitous",
+    "pos": "adjective",
+    "definition": "present, appearing, or found everywhere",
+    "example": "Smartphones have become ubiquitous in modern society.",
+    "synonyms": ["omnipresent", "pervasive", "universal", "widespread"]
+  },
+  {
+    "id": "v-0003",
+    "headword": "ameliorate",
+    "pos": "verb",
+    "definition": "to make something bad or unsatisfactory better",
+    "example": "The new policies were designed to ameliorate the effects of poverty.",
+    "synonyms": ["improve", "enhance", "better", "alleviate", "mitigate"]
+  },
+  {
+    "id": "v-0004",
+    "headword": "perfunctory",
+    "pos": "adjective",
+    "definition": "carried out with minimum effort or reflection",
+    "example": "He gave the report a perfunctory glance before signing off on it.",
+    "synonyms": ["cursory", "superficial", "mechanical", "routine", "hasty"]
+  },
+  {
+    "id": "v-0005",
+    "headword": "gregarious",
+    "pos": "adjective",
+    "definition": "fond of company; sociable",
+    "example": "Her gregarious nature made her the life of every party.",
+    "synonyms": ["sociable", "outgoing", "convivial", "affable", "companionable"]
+  },
+  {
+    "id": "v-0006",
+    "headword": "taciturn",
+    "pos": "adjective",
+    "definition": "reserved or uncommunicative in speech; saying little",
+    "example": "The taciturn professor rarely spoke outside of class lectures.",
+    "synonyms": ["reserved", "reticent", "quiet", "uncommunicative", "silent"]
+  },
+  {
+    "id": "v-0007",
+    "headword": "loquacious",
+    "pos": "adjective",
+    "definition": "tending to talk a great deal; talkative",
+    "example": "The loquacious host kept guests entertained with endless stories.",
+    "synonyms": ["talkative", "garrulous", "verbose", "voluble", "chatty"]
+  },
+  {
+    "id": "v-0008",
+    "headword": "enigmatic",
+    "pos": "adjective",
+    "definition": "difficult to interpret or understand; mysterious",
+    "example": "The Mona Lisa's enigmatic smile has puzzled viewers for centuries.",
+    "synonyms": ["mysterious", "puzzling", "cryptic", "inscrutable", "obscure"]
+  },
+  {
+    "id": "v-0009",
+    "headword": "pragmatic",
+    "pos": "adjective",
+    "definition": "dealing with things sensibly and realistically",
+    "example": "Her pragmatic approach to problem-solving made her an effective manager.",
+    "synonyms": ["practical", "realistic", "sensible", "down-to-earth", "matter-of-fact"]
+  },
+  {
+    "id": "v-0010",
+    "headword": "didactic",
+    "pos": "adjective",
+    "definition": "intended to teach or instruct, often excessively",
+    "example": "The novel was criticized for its overly didactic tone.",
+    "synonyms": ["instructive", "educational", "pedagogic", "moralistic", "preachy"]
+  },
+  {
+    "id": "v-0011",
+    "headword": "recalcitrant",
+    "pos": "adjective",
+    "definition": "having an obstinately uncooperative attitude",
+    "example": "The recalcitrant student refused to follow classroom rules.",
+    "synonyms": ["uncooperative", "obstinate", "defiant", "rebellious", "intractable"]
+  },
+  {
+    "id": "v-0012",
+    "headword": "sycophant",
+    "pos": "noun",
+    "definition": "a person who acts obsequiously toward someone important",
+    "example": "The CEO surrounded himself with sycophants who never questioned his decisions.",
+    "synonyms": ["flatterer", "toady", "yes-man", "bootlicker", "fawner"]
+  },
+  {
+    "id": "v-0013",
+    "headword": "ostentatious",
+    "pos": "adjective",
+    "definition": "characterized by vulgar or pretentious display",
+    "example": "His ostentatious wealth was evident in his gold-plated car.",
+    "synonyms": ["showy", "pretentious", "flashy", "gaudy", "flamboyant"]
+  },
+  {
+    "id": "v-0014",
+    "headword": "parsimonious",
+    "pos": "adjective",
+    "definition": "extremely unwilling to spend money or use resources",
+    "example": "The parsimonious landlord refused to make necessary repairs.",
+    "synonyms": ["stingy", "miserly", "frugal", "tight-fisted", "penny-pinching"]
+  },
+  {
+    "id": "v-0015",
+    "headword": "obsequious",
+    "pos": "adjective",
+    "definition": "obedient or attentive to an excessive degree",
+    "example": "The obsequious waiter hovered over our table throughout dinner.",
+    "synonyms": ["servile", "fawning", "sycophantic", "submissive", "deferential"]
+  },
+  {
+    "id": "v-0016",
+    "headword": "garrulous",
+    "pos": "adjective",
+    "definition": "excessively talkative, especially on trivial matters",
+    "example": "My garrulous neighbor can talk for hours about nothing in particular.",
+    "synonyms": ["talkative", "loquacious", "verbose", "chatty", "wordy"]
+  },
+  {
+    "id": "v-0017",
+    "headword": "laconic",
+    "pos": "adjective",
+    "definition": "using very few words; concise to the point of seeming rude",
+    "example": "His laconic reply of 'No' ended the discussion.",
+    "synonyms": ["brief", "concise", "terse", "succinct", "pithy"]
+  },
+  {
+    "id": "v-0018",
+    "headword": "perspicacious",
+    "pos": "adjective",
+    "definition": "having a ready insight into and understanding of things",
+    "example": "The perspicacious detective noticed details others missed.",
+    "synonyms": ["perceptive", "astute", "shrewd", "discerning", "insightful"]
+  },
+  {
+    "id": "v-0019",
+    "headword": "vociferous",
+    "pos": "adjective",
+    "definition": "vehement or clamorous; expressing feelings loudly",
+    "example": "The vociferous crowd demanded justice.",
+    "synonyms": ["loud", "clamorous", "noisy", "strident", "boisterous"]
+  },
+  {
+    "id": "v-0020",
+    "headword": "impecunious",
+    "pos": "adjective",
+    "definition": "having little or no money",
+    "example": "The impecunious artist could barely afford rent.",
+    "synonyms": ["poor", "penniless", "indigent", "destitute", "impoverished"]
+  },
+  {
+    "id": "v-0021",
+    "headword": "capricious",
+    "pos": "adjective",
+    "definition": "given to sudden and unaccountable changes of mood or behavior",
+    "example": "The capricious weather made it hard to plan outdoor events.",
+    "synonyms": ["fickle", "changeable", "volatile", "unpredictable", "mercurial"]
+  },
+  {
+    "id": "v-0022",
+    "headword": "sanguine",
+    "pos": "adjective",
+    "definition": "optimistic or positive, especially in a bad situation",
+    "example": "Despite the setbacks, she remained sanguine about the project's success.",
+    "synonyms": ["optimistic", "hopeful", "confident", "positive", "cheerful"]
+  },
+  {
+    "id": "v-0023",
+    "headword": "phlegmatic",
+    "pos": "adjective",
+    "definition": "having an unemotional and stolidly calm disposition",
+    "example": "His phlegmatic response to the crisis surprised everyone.",
+    "synonyms": ["calm", "composed", "impassive", "stoic", "unemotional"]
+  },
+  {
+    "id": "v-0024",
+    "headword": "querulous",
+    "pos": "adjective",
+    "definition": "complaining in a petulant or whining manner",
+    "example": "The querulous patient constantly found fault with the nurses.",
+    "synonyms": ["complaining", "whining", "petulant", "peevish", "irritable"]
+  },
+  {
+    "id": "v-0025",
+    "headword": "truculent",
+    "pos": "adjective",
+    "definition": "eager or quick to argue or fight; aggressively defiant",
+    "example": "The truculent teenager refused to back down from the argument.",
+    "synonyms": ["aggressive", "belligerent", "combative", "defiant", "pugnacious"]
+  },
+  {
+    "id": "v-0026",
+    "headword": "magnanimous",
+    "pos": "adjective",
+    "definition": "very generous or forgiving, especially toward a rival",
+    "example": "The winner was magnanimous in victory, praising his opponent's skills.",
+    "synonyms": ["generous", "charitable", "benevolent", "noble", "gracious"]
+  },
+  {
+    "id": "v-0027",
+    "headword": "pusillanimous",
+    "pos": "adjective",
+    "definition": "showing a lack of courage or determination; timid",
+    "example": "His pusillanimous refusal to stand up for his beliefs disappointed his supporters.",
+    "synonyms": ["cowardly", "timid", "fearful", "faint-hearted", "spineless"]
+  },
+  {
+    "id": "v-0028",
+    "headword": "ebullient",
+    "pos": "adjective",
+    "definition": "cheerful and full of energy",
+    "example": "Her ebullient personality made everyone around her feel happy.",
+    "synonyms": ["exuberant", "enthusiastic", "vivacious", "buoyant", "effervescent"]
+  },
+  {
+    "id": "v-0029",
+    "headword": "lugubrious",
+    "pos": "adjective",
+    "definition": "looking or sounding sad and dismal",
+    "example": "The lugubrious music set a somber tone for the memorial.",
+    "synonyms": ["mournful", "doleful", "melancholy", "gloomy", "sorrowful"]
+  },
+  {
+    "id": "v-0030",
+    "headword": "insipid",
+    "pos": "adjective",
+    "definition": "lacking flavor or interest; dull",
+    "example": "The insipid conversation made the dinner party drag on.",
+    "synonyms": ["bland", "dull", "uninteresting", "vapid", "boring"]
+  },
+  {
+    "id": "v-0031",
+    "headword": "cogent",
+    "pos": "adjective",
+    "definition": "clear, logical, and convincing",
+    "example": "The lawyer presented a cogent argument that swayed the jury.",
+    "synonyms": ["compelling", "convincing", "persuasive", "logical", "sound"]
+  },
+  {
+    "id": "v-0032",
+    "headword": "specious",
+    "pos": "adjective",
+    "definition": "superficially plausible but actually wrong",
+    "example": "His specious reasoning fooled many people at first.",
+    "synonyms": ["misleading", "deceptive", "fallacious", "sophistic", "unsound"]
+  },
+  {
+    "id": "v-0033",
+    "headword": "venerate",
+    "pos": "verb",
+    "definition": "to regard with great respect; revere",
+    "example": "Many cultures venerate their elders for their wisdom.",
+    "synonyms": ["revere", "respect", "honor", "esteem", "worship"]
+  },
+  {
+    "id": "v-0034",
+    "headword": "vilify",
+    "pos": "verb",
+    "definition": "to speak or write about in an abusively disparaging manner",
+    "example": "The tabloids sought to vilify the celebrity with false accusations.",
+    "synonyms": ["defame", "slander", "malign", "disparage", "denigrate"]
+  },
+  {
+    "id": "v-0035",
+    "headword": "exculpate",
+    "pos": "verb",
+    "definition": "to show or declare that someone is not guilty of wrongdoing",
+    "example": "New evidence helped exculpate the wrongly convicted man.",
+    "synonyms": ["absolve", "exonerate", "acquit", "vindicate", "clear"]
+  },
+  {
+    "id": "v-0036",
+    "headword": "extenuate",
+    "pos": "verb",
+    "definition": "to make guilt or an offense seem less serious",
+    "example": "Nothing could extenuate the severity of his crime.",
+    "synonyms": ["mitigate", "lessen", "diminish", "palliate", "excuse"]
+  },
+  {
+    "id": "v-0037",
+    "headword": "equivocate",
+    "pos": "verb",
+    "definition": "to use ambiguous language to conceal the truth",
+    "example": "The politician continued to equivocate when asked direct questions.",
+    "synonyms": ["prevaricate", "hedge", "evade", "dodge", "waffle"]
+  },
+  {
+    "id": "v-0038",
+    "headword": "obfuscate",
+    "pos": "verb",
+    "definition": "to make obscure, unclear, or unintelligible",
+    "example": "The lawyer's jargon seemed designed to obfuscate the simple facts.",
+    "synonyms": ["confuse", "obscure", "muddle", "bewilder", "cloud"]
+  },
+  {
+    "id": "v-0039",
+    "headword": "disseminate",
+    "pos": "verb",
+    "definition": "to spread information widely",
+    "example": "The internet has made it easier to disseminate news globally.",
+    "synonyms": ["spread", "distribute", "circulate", "broadcast", "propagate"]
+  },
+  {
+    "id": "v-0040",
+    "headword": "precipitate",
+    "pos": "verb",
+    "definition": "to cause an event or situation to happen suddenly",
+    "example": "The scandal precipitated the minister's resignation.",
+    "synonyms": ["hasten", "accelerate", "trigger", "provoke", "spark"]
+  },
+  {
+    "id": "v-0041",
+    "headword": "propitiate",
+    "pos": "verb",
+    "definition": "to win or regain the favor of someone by doing something that pleases them",
+    "example": "He tried to propitiate his angry boss with a heartfelt apology.",
+    "synonyms": ["appease", "placate", "mollify", "pacify", "conciliate"]
+  },
+  {
+    "id": "v-0042",
+    "headword": "inundate",
+    "pos": "verb",
+    "definition": "to overwhelm someone with things to be dealt with",
+    "example": "After the announcement, customer service was inundated with calls.",
+    "synonyms": ["overwhelm", "flood", "swamp", "deluge", "engulf"]
+  },
+  {
+    "id": "v-0043",
+    "headword": "enervate",
+    "pos": "verb",
+    "definition": "to cause someone to feel drained of energy",
+    "example": "The hot, humid weather seemed to enervate everyone.",
+    "synonyms": ["weaken", "exhaust", "tire", "fatigue", "debilitate"]
+  },
+  {
+    "id": "v-0044",
+    "headword": "invigorate",
+    "pos": "verb",
+    "definition": "to give strength or energy to",
+    "example": "The cool morning air invigorated the hikers.",
+    "synonyms": ["energize", "revitalize", "stimulate", "refresh", "enliven"]
+  },
+  {
+    "id": "v-0045",
+    "headword": "sanction",
+    "pos": "noun/verb",
+    "definition": "official permission or approval; to impose penalties for disobeying",
+    "example": "The committee refused to sanction the proposed changes.",
+    "synonyms": ["authorize", "approve", "permit", "endorse", "penalize"]
+  },
+  {
+    "id": "v-0046",
+    "headword": "antithetical",
+    "pos": "adjective",
+    "definition": "directly opposed or contrasted; mutually incompatible",
+    "example": "His actions were antithetical to his stated beliefs.",
+    "synonyms": ["opposite", "contrary", "contradictory", "incompatible", "conflicting"]
+  },
+  {
+    "id": "v-0047",
+    "headword": "assiduous",
+    "pos": "adjective",
+    "definition": "showing great care and perseverance",
+    "example": "Her assiduous study habits led to academic success.",
+    "synonyms": ["diligent", "careful", "meticulous", "thorough", "industrious"]
+  },
+  {
+    "id": "v-0048",
+    "headword": "concomitant",
+    "pos": "adjective",
+    "definition": "naturally accompanying or associated",
+    "example": "Stress is a concomitant of high-pressure jobs.",
+    "synonyms": ["accompanying", "attendant", "associated", "concurrent", "coincident"]
+  },
+  {
+    "id": "v-0049",
+    "headword": "exigent",
+    "pos": "adjective",
+    "definition": "pressing; demanding immediate attention",
+    "example": "The exigent circumstances required immediate action.",
+    "synonyms": ["urgent", "pressing", "critical", "crucial", "imperative"]
+  },
+  {
+    "id": "v-0050",
+    "headword": "inchoate",
+    "pos": "adjective",
+    "definition": "just begun and so not fully formed or developed",
+    "example": "The inchoate plan needed more development before presentation.",
+    "synonyms": ["undeveloped", "rudimentary", "nascent", "embryonic", "formless"]
+  },
+  {
+    "id": "v-0051",
+    "headword": "inimical",
+    "pos": "adjective",
+    "definition": "tending to obstruct or harm; unfriendly; hostile",
+    "example": "Policies inimical to small businesses hurt the local economy.",
+    "synonyms": ["hostile", "unfriendly", "antagonistic", "harmful", "adverse"]
+  },
+  {
+    "id": "v-0052",
+    "headword": "nascent",
+    "pos": "adjective",
+    "definition": "just beginning to develop",
+    "example": "The nascent democracy faced many challenges.",
+    "synonyms": ["emerging", "developing", "budding", "embryonic", "incipient"]
+  },
+  {
+    "id": "v-0053",
+    "headword": "pellucid",
+    "pos": "adjective",
+    "definition": "translucently clear; easily understood",
+    "example": "Her pellucid prose made complex ideas accessible.",
+    "synonyms": ["clear", "transparent", "lucid", "limpid", "crystalline"]
+  },
+  {
+    "id": "v-0054",
+    "headword": "quotidian",
+    "pos": "adjective",
+    "definition": "of or occurring every day; ordinary",
+    "example": "She longed to escape the quotidian routine of office life.",
+    "synonyms": ["daily", "everyday", "ordinary", "mundane", "routine"]
+  },
+  {
+    "id": "v-0055",
+    "headword": "recondite",
+    "pos": "adjective",
+    "definition": "little known; abstruse",
+    "example": "The professor's recondite lectures confused most students.",
+    "synonyms": ["obscure", "abstruse", "arcane", "esoteric", "cryptic"]
+  },
+  {
+    "id": "v-0056",
+    "headword": "tendentious",
+    "pos": "adjective",
+    "definition": "expressing or intending to promote a particular cause or point of view",
+    "example": "The documentary was criticized for its tendentious portrayal of events.",
+    "synonyms": ["biased", "partisan", "one-sided", "prejudiced", "slanted"]
+  },
+  {
+    "id": "v-0057",
+    "headword": "verisimilitude",
+    "pos": "noun",
+    "definition": "the appearance of being true or real",
+    "example": "The author's attention to detail gave the novel verisimilitude.",
+    "synonyms": ["realism", "authenticity", "plausibility", "credibility", "lifelikeness"]
+  },
+  {
+    "id": "v-0058",
+    "headword": "zealot",
+    "pos": "noun",
+    "definition": "a person who is fanatically devoted to a cause",
+    "example": "The political zealot refused to consider opposing viewpoints.",
+    "synonyms": ["fanatic", "extremist", "radical", "militant", "enthusiast"]
+  },
+  {
+    "id": "v-0059",
+    "headword": "abrogate",
+    "pos": "verb",
+    "definition": "to abolish or annul by authority",
+    "example": "The new government moved to abrogate the oppressive laws.",
+    "synonyms": ["repeal", "revoke", "abolish", "rescind", "annul"]
+  },
+  {
+    "id": "v-0060",
+    "headword": "contrite",
+    "pos": "adjective",
+    "definition": "feeling or expressing remorse for wrongdoing",
+    "example": "The contrite defendant apologized sincerely to the victims.",
+    "synonyms": ["remorseful", "penitent", "repentant", "apologetic", "sorry"]
+  },
+  {
+    "id": "v-0061",
+    "headword": "demur",
+    "pos": "verb",
+    "definition": "to raise doubts or objections; to show reluctance",
+    "example": "She demurred at the suggestion that she was to blame.",
+    "synonyms": ["object", "protest", "take exception", "disagree", "hesitate"]
+  },
+  {
+    "id": "v-0062",
+    "headword": "ennui",
+    "pos": "noun",
+    "definition": "a feeling of listlessness and dissatisfaction arising from boredom",
+    "example": "Summer ennui set in after weeks without stimulating activities.",
+    "synonyms": ["boredom", "tedium", "weariness", "languor", "listlessness"]
+  },
+  {
+    "id": "v-0063",
+    "headword": "facetious",
+    "pos": "adjective",
+    "definition": "treating serious issues with deliberately inappropriate humor",
+    "example": "His facetious remarks during the meeting were unwelcome.",
+    "synonyms": ["flippant", "frivolous", "joking", "jesting", "tongue-in-cheek"]
+  },
+  {
+    "id": "v-0064",
+    "headword": "germane",
+    "pos": "adjective",
+    "definition": "relevant to a subject under consideration",
+    "example": "Please keep your comments germane to the topic at hand.",
+    "synonyms": ["relevant", "pertinent", "applicable", "appropriate", "related"]
+  },
+  {
+    "id": "v-0065",
+    "headword": "harangue",
+    "pos": "noun/verb",
+    "definition": "a lengthy and aggressive speech; to lecture aggressively",
+    "example": "The coach's harangue motivated the team to play harder.",
+    "synonyms": ["tirade", "diatribe", "lecture", "rant", "sermon"]
+  },
+  {
+    "id": "v-0066",
+    "headword": "iconoclast",
+    "pos": "noun",
+    "definition": "a person who attacks cherished beliefs or institutions",
+    "example": "The artist was known as an iconoclast who challenged traditional art forms.",
+    "synonyms": ["rebel", "nonconformist", "radical", "dissenter", "heretic"]
+  },
+  {
+    "id": "v-0067",
+    "headword": "jejune",
+    "pos": "adjective",
+    "definition": "naive, simplistic, and superficial; lacking interest",
+    "example": "The critic dismissed the novel as jejune and unoriginal.",
+    "synonyms": ["naive", "simplistic", "childish", "immature", "unsophisticated"]
+  },
+  {
+    "id": "v-0068",
+    "headword": "kowtow",
+    "pos": "verb",
+    "definition": "to act in an excessively subservient manner",
+    "example": "He refused to kowtow to unreasonable demands.",
+    "synonyms": ["defer", "submit", "grovel", "fawn", "truckle"]
+  },
+  {
+    "id": "v-0069",
+    "headword": "mercurial",
+    "pos": "adjective",
+    "definition": "subject to sudden or unpredictable changes of mood",
+    "example": "Her mercurial temperament made her difficult to work with.",
+    "synonyms": ["volatile", "changeable", "unpredictable", "erratic", "fickle"]
+  },
+  {
+    "id": "v-0070",
+    "headword": "nefarious",
+    "pos": "adjective",
+    "definition": "wicked, villainous, or criminal",
+    "example": "The nefarious scheme was eventually uncovered by investigators.",
+    "synonyms": ["wicked", "evil", "villainous", "criminal", "sinister"]
+  },
+  {
+    "id": "v-0071",
+    "headword": "obviate",
+    "pos": "verb",
+    "definition": "to remove or prevent a difficulty",
+    "example": "Proper planning can obviate many potential problems.",
+    "synonyms": ["prevent", "preclude", "avert", "avoid", "forestall"]
+  },
+  {
+    "id": "v-0072",
+    "headword": "pedantic",
+    "pos": "adjective",
+    "definition": "excessively concerned with minor details or rules",
+    "example": "His pedantic insistence on proper grammar annoyed his colleagues.",
+    "synonyms": ["nitpicking", "fussy", "finicky", "punctilious", "overscrupulous"]
+  },
+  {
+    "id": "v-0073",
+    "headword": "quixotic",
+    "pos": "adjective",
+    "definition": "exceedingly idealistic; unrealistic and impractical",
+    "example": "His quixotic plans to reform the system were doomed to fail.",
+    "synonyms": ["idealistic", "impractical", "romantic", "visionary", "unrealistic"]
+  },
+  {
+    "id": "v-0074",
+    "headword": "redolent",
+    "pos": "adjective",
+    "definition": "strongly reminiscent or suggestive of; fragrant",
+    "example": "The kitchen was redolent of freshly baked bread.",
+    "synonyms": ["evocative", "suggestive", "reminiscent", "aromatic", "fragrant"]
+  },
+  {
+    "id": "v-0075",
+    "headword": "spurious",
+    "pos": "adjective",
+    "definition": "not being what it purports to be; false or fake",
+    "example": "The spurious claims were quickly debunked by experts.",
+    "synonyms": ["false", "fake", "bogus", "counterfeit", "fraudulent"]
+  },
+  {
+    "id": "v-0076",
+    "headword": "trepidation",
+    "pos": "noun",
+    "definition": "a feeling of fear or agitation about something",
+    "example": "She approached the interview with considerable trepidation.",
+    "synonyms": ["fear", "anxiety", "apprehension", "nervousness", "unease"]
+  },
+  {
+    "id": "v-0077",
+    "headword": "umbrage",
+    "pos": "noun",
+    "definition": "offense or annoyance",
+    "example": "He took umbrage at the suggestion that he was incompetent.",
+    "synonyms": ["offense", "annoyance", "resentment", "displeasure", "indignation"]
+  },
+  {
+    "id": "v-0078",
+    "headword": "venial",
+    "pos": "adjective",
+    "definition": "denoting a fault or offense that is forgivable",
+    "example": "The venial mistake was quickly forgiven and forgotten.",
+    "synonyms": ["forgivable", "pardonable", "excusable", "minor", "slight"]
+  },
+  {
+    "id": "v-0079",
+    "headword": "wanton",
+    "pos": "adjective",
+    "definition": "deliberate and unprovoked; unrestrained",
+    "example": "The wanton destruction of property shocked the community.",
+    "synonyms": ["deliberate", "willful", "malicious", "gratuitous", "unprovoked"]
+  },
+  {
+    "id": "v-0080",
+    "headword": "zenith",
+    "pos": "noun",
+    "definition": "the highest point reached by something",
+    "example": "Her career reached its zenith when she won the Nobel Prize.",
+    "synonyms": ["peak", "pinnacle", "summit", "apex", "acme"]
+  },
+  {
+    "id": "v-0081",
+    "headword": "alacrity",
+    "pos": "noun",
+    "definition": "brisk and cheerful readiness",
+    "example": "She accepted the challenge with alacrity.",
+    "synonyms": ["eagerness", "enthusiasm", "readiness", "willingness", "promptness"]
+  },
+  {
+    "id": "v-0082",
+    "headword": "bellicose",
+    "pos": "adjective",
+    "definition": "demonstrating aggression and willingness to fight",
+    "example": "The bellicose rhetoric increased tensions between the nations.",
+    "synonyms": ["aggressive", "belligerent", "combative", "pugnacious", "warlike"]
+  },
+  {
+    "id": "v-0083",
+    "headword": "chagrin",
+    "pos": "noun",
+    "definition": "distress or embarrassment at having failed",
+    "example": "To her chagrin, she discovered the mistake after the presentation.",
+    "synonyms": ["embarrassment", "mortification", "humiliation", "disappointment", "dismay"]
+  },
+  {
+    "id": "v-0084",
+    "headword": "diffident",
+    "pos": "adjective",
+    "definition": "modest or shy because of a lack of self-confidence",
+    "example": "The diffident student rarely spoke up in class.",
+    "synonyms": ["shy", "timid", "modest", "unassuming", "self-effacing"]
+  },
+  {
+    "id": "v-0085",
+    "headword": "effrontery",
+    "pos": "noun",
+    "definition": "insolent or impertinent behavior",
+    "example": "He had the effrontery to demand a raise after his poor performance.",
+    "synonyms": ["audacity", "impudence", "impertinence", "gall", "nerve"]
+  },
+  {
+    "id": "v-0086",
+    "headword": "furtive",
+    "pos": "adjective",
+    "definition": "attempting to avoid notice or attention",
+    "example": "She cast a furtive glance at the clock during the meeting.",
+    "synonyms": ["secretive", "stealthy", "surreptitious", "covert", "clandestine"]
+  },
+  {
+    "id": "v-0087",
+    "headword": "guile",
+    "pos": "noun",
+    "definition": "sly or cunning intelligence",
+    "example": "He used guile rather than force to achieve his goals.",
+    "synonyms": ["cunning", "craftiness", "deception", "trickery", "artifice"]
+  },
+  {
+    "id": "v-0088",
+    "headword": "hubris",
+    "pos": "noun",
+    "definition": "excessive pride or self-confidence",
+    "example": "His hubris led to his downfall when he underestimated his opponents.",
+    "synonyms": ["arrogance", "pride", "conceit", "haughtiness", "vanity"]
+  },
+  {
+    "id": "v-0089",
+    "headword": "implacable",
+    "pos": "adjective",
+    "definition": "unable to be placated or appeased",
+    "example": "She faced implacable opposition from her rivals.",
+    "synonyms": ["relentless", "unforgiving", "unyielding", "inexorable", "unappeasable"]
+  },
+  {
+    "id": "v-0090",
+    "headword": "juxtapose",
+    "pos": "verb",
+    "definition": "to place close together for contrasting effect",
+    "example": "The artist juxtaposed light and dark to create visual tension.",
+    "synonyms": ["contrast", "compare", "set side by side", "place alongside"]
+  },
+  {
+    "id": "v-0091",
+    "headword": "kindle",
+    "pos": "verb",
+    "definition": "to arouse or inspire an emotion or feeling",
+    "example": "Her words kindled hope in the hearts of her followers.",
+    "synonyms": ["arouse", "inspire", "ignite", "stir", "awaken"]
+  },
+  {
+    "id": "v-0092",
+    "headword": "limpid",
+    "pos": "adjective",
+    "definition": "completely clear and transparent; easily understood",
+    "example": "The limpid water revealed the colorful coral below.",
+    "synonyms": ["clear", "transparent", "crystal-clear", "pellucid", "lucid"]
+  },
+  {
+    "id": "v-0093",
+    "headword": "munificent",
+    "pos": "adjective",
+    "definition": "very generous",
+    "example": "The munificent donor funded the entire scholarship program.",
+    "synonyms": ["generous", "lavish", "bountiful", "liberal", "magnanimous"]
+  },
+  {
+    "id": "v-0094",
+    "headword": "nostrum",
+    "pos": "noun",
+    "definition": "a scheme or remedy for bringing about some social or political reform",
+    "example": "Politicians often propose simple nostrums for complex problems.",
+    "synonyms": ["remedy", "cure-all", "panacea", "solution", "treatment"]
+  },
+  {
+    "id": "v-0095",
+    "headword": "opulent",
+    "pos": "adjective",
+    "definition": "ostentatiously rich and luxurious",
+    "example": "The opulent mansion featured gold fixtures and marble floors.",
+    "synonyms": ["luxurious", "lavish", "sumptuous", "magnificent", "extravagant"]
+  },
+  {
+    "id": "v-0096",
+    "headword": "paucity",
+    "pos": "noun",
+    "definition": "the presence of something only in small or insufficient quantities",
+    "example": "The paucity of evidence made it difficult to prosecute the case.",
+    "synonyms": ["scarcity", "shortage", "dearth", "lack", "insufficiency"]
+  },
+  {
+    "id": "v-0097",
+    "headword": "quagmire",
+    "pos": "noun",
+    "definition": "a soft boggy area of land; an awkward or difficult situation",
+    "example": "The project became a bureaucratic quagmire.",
+    "synonyms": ["predicament", "muddle", "mess", "dilemma", "morass"]
+  },
+  {
+    "id": "v-0098",
+    "headword": "reticent",
+    "pos": "adjective",
+    "definition": "not revealing one's thoughts or feelings readily",
+    "example": "He was reticent about discussing his personal life.",
+    "synonyms": ["reserved", "taciturn", "uncommunicative", "secretive", "tight-lipped"]
+  },
+  {
+    "id": "v-0099",
+    "headword": "stolid",
+    "pos": "adjective",
+    "definition": "calm, dependable, and showing little emotion",
+    "example": "The stolid guard remained unmoved by the commotion.",
+    "synonyms": ["impassive", "phlegmatic", "unemotional", "stoic", "unexcitable"]
+  },
+  {
+    "id": "v-0100",
+    "headword": "torpid",
+    "pos": "adjective",
+    "definition": "mentally or physically inactive; lethargic",
+    "example": "The heat made everyone feel torpid and unmotivated.",
+    "synonyms": ["lethargic", "sluggish", "inactive", "listless", "languid"]
+  }
+]

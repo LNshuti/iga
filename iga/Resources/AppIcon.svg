@@ -1,0 +1,31 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d4f6e"/>
+      <stop offset="100%" stop-color="#12182a"/>
+    </linearGradient>
+    <linearGradient id="flameGradient" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#00b894"/>
+      <stop offset="60%" stop-color="#f0a500"/>
+      <stop offset="100%" stop-color="#ff6b35"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="200" height="200" rx="40" fill="url(#bgGradient)"/>
+
+  <!-- Simplified book -->
+  <g transform="translate(100, 125)">
+    <path d="M-55 10 L0 -5 L55 10 L55 45 L0 30 L-55 45 Z"
+          fill="none"
+          stroke="#00cec9"
+          stroke-width="7"
+          stroke-linejoin="round"/>
+  </g>
+
+  <!-- Bold geometric flame -->
+  <g transform="translate(100, 60)">
+    <path d="M0 -40 L20 15 L0 5 L-20 15 Z"
+          fill="url(#flameGradient)"/>
+  </g>
+</svg>

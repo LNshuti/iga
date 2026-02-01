@@ -1,0 +1,113 @@
+name: IGA
+options:
+  bundleIdPrefix: com.iga
+  deploymentTarget:
+    iOS: "17.0"
+  xcodeVersion: "15.0"
+  generateEmptyDirectories: true
+  groupSortPosition: top
+
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    MARKETING_VERSION: "1.0.0"
+    CURRENT_PROJECT_VERSION: "1"
+    GENERATE_INFOPLIST_FILE: YES
+    INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+    INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: YES
+    INFOPLIST_KEY_UILaunchScreen_Generation: YES
+    INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+    INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+    ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+    ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+    ENABLE_PREVIEWS: YES
+
+configs:
+  Debug:
+    settings:
+      DEBUG_INFORMATION_FORMAT: "dwarf-with-dsym"
+  Release:
+    settings:
+      DEBUG_INFORMATION_FORMAT: "dwarf-with-dsym"
+
+targets:
+  IGA:
+    type: application
+    platform: iOS
+    sources:
+      - path: IGA
+        excludes:
+          - "Tests/**"
+          - "**/*.xcconfig"
+    resources:
+      - path: IGA/Data/Seed
+        buildPhase: resources
+      - path: IGA/Resources/Assets.xcassets
+        buildPhase: resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.iga.app
+        INFOPLIST_KEY_CFBundleDisplayName: "IGA"
+        INFOPLIST_KEY_LSApplicationCategoryType: "public.app-category.education"
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: ""
+        PRODUCT_NAME: "$(TARGET_NAME)"
+      configs:
+        Debug:
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG
+          OTHER_SWIFT_FLAGS: "-D DEBUG"
+        Release:
+          SWIFT_OPTIMIZATION_LEVEL: "-O"
+    info:
+      path: IGA/Info.plist
+      properties:
+        CFBundleDisplayName: IGA
+        CFBundleName: IGA
+        CFBundleShortVersionString: "1.0.0"
+        CFBundleVersion: "1"
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        CEREBRAS_API_BASE_URL: "$(CEREBRAS_API_BASE_URL)"
+        CEREBRAS_API_KEY: "$(CEREBRAS_API_KEY)"
+        TEXT_MODEL_ID: "$(TEXT_MODEL_ID)"
+        EMBEDDING_MODEL_ID: "$(EMBEDDING_MODEL_ID)"
+    entitlements:
+      path: IGA/IGA.entitlements
+      properties:
+        com.apple.security.app-sandbox: true
+        com.apple.security.network.client: true
+
+  IGATests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: IGA/Tests
+    dependencies:
+      - target: IGA
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.iga.tests
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/IGA.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/IGA"
+        BUNDLE_LOADER: "$(TEST_HOST)"
+
+schemes:
+  IGA:
+    build:
+      targets:
+        IGA: all
+        IGATests: [test]
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - IGATests
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release
