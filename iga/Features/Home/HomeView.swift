@@ -357,25 +357,71 @@ struct StatsView: View {
 
     /// Quick access navigation section
     private var quickAccessSection: some View {
-        HStack(spacing: Theme.Spacing.md) {
-            NavigationLink {
-                MasteryDashboardView()
-            } label: {
-                QuickAccessCard(
-                    icon: "chart.bar.fill",
-                    title: "Skill Mastery",
-                    color: Theme.Colors.quant
-                )
+        VStack(spacing: Theme.Spacing.md) {
+            HStack(spacing: Theme.Spacing.md) {
+                NavigationLink {
+                    MasteryDashboardView()
+                } label: {
+                    QuickAccessCard(
+                        icon: "chart.bar.fill",
+                        title: "Skill Mastery",
+                        color: Theme.Colors.quant
+                    )
+                }
+
+                NavigationLink {
+                    StudyPlanView()
+                } label: {
+                    QuickAccessCard(
+                        icon: "calendar",
+                        title: "Study Plan",
+                        color: Theme.Colors.verbal
+                    )
+                }
             }
 
-            NavigationLink {
-                StudyPlanView()
-            } label: {
-                QuickAccessCard(
-                    icon: "calendar",
-                    title: "Study Plan",
-                    color: Theme.Colors.verbal
-                )
+            HStack(spacing: Theme.Spacing.md) {
+                NavigationLink {
+                    ErrorLogView()
+                } label: {
+                    QuickAccessCard(
+                        icon: "exclamationmark.circle.fill",
+                        title: "Mistake Journal",
+                        color: Theme.Colors.error
+                    )
+                }
+
+                NavigationLink {
+                    ExamModeView()
+                } label: {
+                    QuickAccessCard(
+                        icon: "timer",
+                        title: "Exam Mode",
+                        color: Theme.Colors.warning
+                    )
+                }
+            }
+
+            HStack(spacing: Theme.Spacing.md) {
+                NavigationLink {
+                    AWALabView()
+                } label: {
+                    QuickAccessCard(
+                        icon: "pencil.and.outline",
+                        title: "AWA Lab",
+                        color: Theme.Colors.info
+                    )
+                }
+
+                NavigationLink {
+                    CalculatorView()
+                } label: {
+                    QuickAccessCard(
+                        icon: "function",
+                        title: "Calculator",
+                        color: Theme.Colors.quant
+                    )
+                }
             }
         }
     }

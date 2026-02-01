@@ -11,6 +11,7 @@
 		0D7E660FCF513636DC813D84 /* VocabReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96FAC8650FFC8227BC97494 /* VocabReviewView.swift */; };
 		121A54F4435AD42723F7A445 /* Subskill.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5849D59BE4A605DE8E07B97 /* Subskill.swift */; };
 		1783EAEBA4E671A4D68306D0 /* SpacedRepetition.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E21E4DBBE43B0E93DA4465 /* SpacedRepetition.swift */; };
+		1C7BE63148C9E099D787F28F /* AWALabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D46F93DDB4E0B3E9EDE80C /* AWALabViewModel.swift */; };
 		24AC4B2741C77C78FB914DA5 /* QuestionGenPromptBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FEB37EBB4E9F96E21CAF555 /* QuestionGenPromptBuilder.swift */; };
 		2C67A62F0BD7F981EF8FD84A /* MasteryDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD127811F6476827911E60E /* MasteryDashboardView.swift */; };
 		316A55299BE327B6A884D906 /* IRTEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD26E02D05A56E65D1F63D93 /* IRTEngine.swift */; };
@@ -19,6 +20,8 @@
 		405928EEFE31A40D48B2E0AD /* DiagnosticViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EE5496E66EC22EA25FED5D /* DiagnosticViewModel.swift */; };
 		416202CA333EFFCF9380D1C3 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A541F82EA0575F0977FB34D /* Message.swift */; };
 		46CB872D57FFFBC6D73C1D18 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C5C9BAEAA38E38E1925430 /* Session.swift */; };
+		48EAD487A5FF876F8BC699F0 /* ExamModeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEDAAF06F6951BBA23ACF0A /* ExamModeViewModel.swift */; };
+		49769993F5941D3067B5E9C9 /* AWALabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D170E62762D402661BD5F637 /* AWALabView.swift */; };
 		4F0D639C1F352BF169CB73D2 /* SubskillMasteryState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527E5DAB84AD2A8F2F33ABDA /* SubskillMasteryState.swift */; };
 		54D755202C89DD0160EA16C4 /* InferenceClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB41A25D19CFCBDE7971013B /* InferenceClient.swift */; };
 		54E34F0D04419295B5E918E8 /* InferenceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14F35F00CF0A66FBECCD1B5 /* InferenceError.swift */; };
@@ -29,6 +32,7 @@
 		6FC465F24E2B79B40C3166EB /* TutorChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CA9E7409CC1F4A51CD31B1 /* TutorChatView.swift */; };
 		824D1869357BF0E343B3502E /* ProgressRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D69E1ADB025FA78B45F7C1 /* ProgressRing.swift */; };
 		8B0F37F3E8EA43EB8BC6CD73 /* Attempt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920192E85AC5197DBAD68AB5 /* Attempt.swift */; };
+		8BC96A10D4C8D09A29092638 /* CalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B4FC8F76CC819F51833599 /* CalculatorView.swift */; };
 		8D016AF084BFE2034C105438 /* QuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B322DCF2E442D22424568F2B /* QuestionView.swift */; };
 		8DB9AE3C07F7EDD641BA87FF /* VocabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F715ACED5EBCD3C7E8AD36 /* VocabViewModel.swift */; };
 		922DD79B6AF89F71A3DF9C45 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC6B1EAE510C2807A6A19D2 /* Question.swift */; };
@@ -47,6 +51,7 @@
 		C4FD6E8D6E541A610C62AD26 /* vocab.json in Resources */ = {isa = PBXBuildFile; fileRef = 0FCC0666F2E10414A40AB59F /* vocab.json */; };
 		C51F3118E10A59EB19167CC2 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33D6BF19F9590D525090AF8 /* AppConfig.swift */; };
 		C598F03E79E1E878C8EB620F /* AppIcon.svg in Resources */ = {isa = PBXBuildFile; fileRef = FF0A51E7F6EA0218C869B885 /* AppIcon.svg */; };
+		C6DBCB4075E9D11BD4A092E3 /* ExamModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C90B8CD321A187FEEB930C7 /* ExamModeView.swift */; };
 		CB90F9182CD4130DA498B9A0 /* questions.json in Resources */ = {isa = PBXBuildFile; fileRef = 084F9F32E859997857C4FE05 /* questions.json */; };
 		CC5F72EE8C4BF983D1A9CA92 /* PromptBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB0460DFDF1DDB6ED2C30F7 /* PromptBuilderTests.swift */; };
 		D2DFF0E3DDA07104E8189DD4 /* VocabWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AA0A3579C09EAC25A37FAD /* VocabWord.swift */; };
@@ -87,10 +92,12 @@
 		0FCC0666F2E10414A40AB59F /* vocab.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = vocab.json; sourceTree = "<group>"; };
 		20C1B0CFB2DFAA629F740DA4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		20D69E1ADB025FA78B45F7C1 /* ProgressRing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressRing.swift; sourceTree = "<group>"; };
+		23B4FC8F76CC819F51833599 /* CalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorView.swift; sourceTree = "<group>"; };
 		2561B5AB7D79014E9828C798 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		2606EAEB73DC9863EE436DB9 /* igaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = igaApp.swift; sourceTree = "<group>"; };
 		2A541F82EA0575F0977FB34D /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		30C5C9BAEAA38E38E1925430 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		30D46F93DDB4E0B3E9EDE80C /* AWALabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWALabViewModel.swift; sourceTree = "<group>"; };
 		3262531CF73223792C36E85B /* SeedDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedDataLoader.swift; sourceTree = "<group>"; };
 		33E2749BA8B2314998284168 /* EmbeddingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbeddingService.swift; sourceTree = "<group>"; };
 		360C44BB4A84815FCF7AD010 /* TutorChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorChatViewModel.swift; sourceTree = "<group>"; };
@@ -106,6 +113,8 @@
 		5AD127811F6476827911E60E /* MasteryDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasteryDashboardView.swift; sourceTree = "<group>"; };
 		65DD4491F974F01368C56684 /* ChoiceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceRow.swift; sourceTree = "<group>"; };
 		689D8AB29A72F331272BCA5C /* PracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeView.swift; sourceTree = "<group>"; };
+		6C90B8CD321A187FEEB930C7 /* ExamModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamModeView.swift; sourceTree = "<group>"; };
+		6CEDAAF06F6951BBA23ACF0A /* ExamModeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamModeViewModel.swift; sourceTree = "<group>"; };
 		6FB0460DFDF1DDB6ED2C30F7 /* PromptBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptBuilderTests.swift; sourceTree = "<group>"; };
 		74FD387B800EE7A7241E09D6 /* DiagnosticView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticView.swift; sourceTree = "<group>"; };
 		761D72FEA70E51E90721ECC6 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
@@ -131,6 +140,7 @@
 		CD26E02D05A56E65D1F63D93 /* IRTEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRTEngine.swift; sourceTree = "<group>"; };
 		CF41D5AF097233D4B61D7950 /* ErrorBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorBanner.swift; sourceTree = "<group>"; };
 		D0EEE2CE5586CD13A51A8BEC /* AdaptiveEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveEngineTests.swift; sourceTree = "<group>"; };
+		D170E62762D402661BD5F637 /* AWALabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWALabView.swift; sourceTree = "<group>"; };
 		D1E21E4DBBE43B0E93DA4465 /* SpacedRepetition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacedRepetition.swift; sourceTree = "<group>"; };
 		D6CA9E7409CC1F4A51CD31B1 /* TutorChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorChatView.swift; sourceTree = "<group>"; };
 		D9822923E9270B10BC471763 /* AdaptiveEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveEngine.swift; sourceTree = "<group>"; };
@@ -184,6 +194,15 @@
 				51266CC683460969A61F3E5E /* StreamingDecoder.swift */,
 			);
 			path = Inference;
+			sourceTree = "<group>";
+		};
+		0A8D9BACF240EBCA5F5175AD /* Exam */ = {
+			isa = PBXGroup;
+			children = (
+				6C90B8CD321A187FEEB930C7 /* ExamModeView.swift */,
+				6CEDAAF06F6951BBA23ACF0A /* ExamModeViewModel.swift */,
+			);
+			path = Exam;
 			sourceTree = "<group>";
 		};
 		14532FEB5E16A03852327CE4 /* Resources */ = {
@@ -339,10 +358,13 @@
 		93DDC1D3852D3A550E573922 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				B22DA2336EF157E70E784A6B /* AWA */,
 				ED8BC07F1924514B907846DD /* Diagnostic */,
+				0A8D9BACF240EBCA5F5175AD /* Exam */,
 				9887C54B10247AC3C180D6F2 /* Home */,
 				1958401C089F8AB8F73931E3 /* Practice */,
 				D8AC5F46E1881FA67D725E48 /* Progress */,
+				9CE1BD66BA5471EA05DD5D37 /* Tools */,
 				ECAE6103AEE90548548B4AAB /* TutorChat */,
 				D4C0946025A5BA6B757242C1 /* Vocab */,
 			);
@@ -355,6 +377,23 @@
 				E0603A1E983E19401FA1F8A9 /* HomeView.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		9CE1BD66BA5471EA05DD5D37 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				23B4FC8F76CC819F51833599 /* CalculatorView.swift */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		B22DA2336EF157E70E784A6B /* AWA */ = {
+			isa = PBXGroup;
+			children = (
+				D170E62762D402661BD5F637 /* AWALabView.swift */,
+				30D46F93DDB4E0B3E9EDE80C /* AWALabViewModel.swift */,
+			);
+			path = AWA;
 			sourceTree = "<group>";
 		};
 		CD1D22706DAA9634122F9A97 = {
@@ -550,10 +589,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49769993F5941D3067B5E9C9 /* AWALabView.swift in Sources */,
+				1C7BE63148C9E099D787F28F /* AWALabViewModel.swift in Sources */,
 				63111489F0CE7F3A6BD680DB /* AdaptiveEngine.swift in Sources */,
 				C51F3118E10A59EB19167CC2 /* AppConfig.swift in Sources */,
 				8B0F37F3E8EA43EB8BC6CD73 /* Attempt.swift in Sources */,
 				A4B29DB7EC12CADAF6AD28E2 /* BKTEngine.swift in Sources */,
+				8BC96A10D4C8D09A29092638 /* CalculatorView.swift in Sources */,
 				AA464ECEFF19CFC8BCDF4706 /* CerebrasInferenceClient.swift in Sources */,
 				BA4069DD1161CB2EB2758A69 /* ChoiceRow.swift in Sources */,
 				FCEC4A073046B82C131A7DA1 /* DataStore.swift in Sources */,
@@ -566,6 +608,8 @@
 				D9ACF89D219B27B557375D7A /* ErrorBanner.swift in Sources */,
 				06583663C77B7EEF78E7E47D /* ErrorLog.swift in Sources */,
 				A64F336B1A3B97074B6D4A35 /* ErrorLogView.swift in Sources */,
+				C6DBCB4075E9D11BD4A092E3 /* ExamModeView.swift in Sources */,
+				48EAD487A5FF876F8BC699F0 /* ExamModeViewModel.swift in Sources */,
 				F5FA00744ABEB521FC88E5EE /* ExplanationPromptBuilder.swift in Sources */,
 				E53F5C5B409015A655CE1E09 /* FlashcardView.swift in Sources */,
 				69C457F5DC5B6C2B547E1CD6 /* HomeView.swift in Sources */,
