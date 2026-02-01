@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		06583663C77B7EEF78E7E47D /* ErrorLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = B922B258753527EA707B412A /* ErrorLog.swift */; };
 		0D7E660FCF513636DC813D84 /* VocabReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96FAC8650FFC8227BC97494 /* VocabReviewView.swift */; };
 		121A54F4435AD42723F7A445 /* Subskill.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5849D59BE4A605DE8E07B97 /* Subskill.swift */; };
 		1783EAEBA4E671A4D68306D0 /* SpacedRepetition.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E21E4DBBE43B0E93DA4465 /* SpacedRepetition.swift */; };
@@ -37,6 +38,7 @@
 		9EC7741B3D4C032E618DE3C0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB85E82239CA2A14001D9956 /* Preview Assets.xcassets */; };
 		A4B29DB7EC12CADAF6AD28E2 /* BKTEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF192193FC7D847BF20AA209 /* BKTEngine.swift */; };
 		A50445CEB84A314506906DCB /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761D72FEA70E51E90721ECC6 /* TimerView.swift */; };
+		A64F336B1A3B97074B6D4A35 /* ErrorLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD76441DE44756F7A3D9F06 /* ErrorLogView.swift */; };
 		AA464ECEFF19CFC8BCDF4706 /* CerebrasInferenceClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B616D9E55543767A92883FF7 /* CerebrasInferenceClient.swift */; };
 		AFFBD90146315530A6C86985 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9E5B0E8DB7EBF02C5E68E5 /* Persistence.swift */; };
 		B645E7850C941C0E10BAD789 /* EmbeddingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E2749BA8B2314998284168 /* EmbeddingService.swift */; };
@@ -111,6 +113,7 @@
 		78E2A59F6CDCE6B02B6E5C54 /* SeedDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedDataTests.swift; sourceTree = "<group>"; };
 		7F4AB860E104C3FA04A1DD86 /* StudyPlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyPlanView.swift; sourceTree = "<group>"; };
 		7FEB37EBB4E9F96E21CAF555 /* QuestionGenPromptBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionGenPromptBuilder.swift; sourceTree = "<group>"; };
+		8AD76441DE44756F7A3D9F06 /* ErrorLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLogView.swift; sourceTree = "<group>"; };
 		8DC6B1EAE510C2807A6A19D2 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 		920192E85AC5197DBAD68AB5 /* Attempt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attempt.swift; sourceTree = "<group>"; };
 		9A148BF39C826E242DF1ED7F /* DiagnosticResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticResult.swift; sourceTree = "<group>"; };
@@ -120,6 +123,7 @@
 		A14F35F00CF0A66FBECCD1B5 /* InferenceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InferenceError.swift; sourceTree = "<group>"; };
 		B322DCF2E442D22424568F2B /* QuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionView.swift; sourceTree = "<group>"; };
 		B616D9E55543767A92883FF7 /* CerebrasInferenceClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CerebrasInferenceClient.swift; sourceTree = "<group>"; };
+		B922B258753527EA707B412A /* ErrorLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLog.swift; sourceTree = "<group>"; };
 		B96FAC8650FFC8227BC97494 /* VocabReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabReviewView.swift; sourceTree = "<group>"; };
 		BB85E82239CA2A14001D9956 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BFCA5BE1C646D36CBD415F71 /* PracticeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeViewModel.swift; sourceTree = "<group>"; };
@@ -253,6 +257,7 @@
 			children = (
 				920192E85AC5197DBAD68AB5 /* Attempt.swift */,
 				9A148BF39C826E242DF1ED7F /* DiagnosticResult.swift */,
+				B922B258753527EA707B412A /* ErrorLog.swift */,
 				2A541F82EA0575F0977FB34D /* Message.swift */,
 				8DC6B1EAE510C2807A6A19D2 /* Question.swift */,
 				30C5C9BAEAA38E38E1925430 /* Session.swift */,
@@ -385,6 +390,7 @@
 		D8AC5F46E1881FA67D725E48 /* Progress */ = {
 			isa = PBXGroup;
 			children = (
+				8AD76441DE44756F7A3D9F06 /* ErrorLogView.swift */,
 				5AD127811F6476827911E60E /* MasteryDashboardView.swift */,
 				7F4AB860E104C3FA04A1DD86 /* StudyPlanView.swift */,
 			);
@@ -558,6 +564,8 @@
 				405928EEFE31A40D48B2E0AD /* DiagnosticViewModel.swift in Sources */,
 				B645E7850C941C0E10BAD789 /* EmbeddingService.swift in Sources */,
 				D9ACF89D219B27B557375D7A /* ErrorBanner.swift in Sources */,
+				06583663C77B7EEF78E7E47D /* ErrorLog.swift in Sources */,
+				A64F336B1A3B97074B6D4A35 /* ErrorLogView.swift in Sources */,
 				F5FA00744ABEB521FC88E5EE /* ExplanationPromptBuilder.swift in Sources */,
 				E53F5C5B409015A655CE1E09 /* FlashcardView.swift in Sources */,
 				69C457F5DC5B6C2B547E1CD6 /* HomeView.swift in Sources */,

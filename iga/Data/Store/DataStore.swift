@@ -30,12 +30,13 @@ final class DataStore {
             TutorMessage.self,
             SubskillMasteryState.self,
             Attempt.self,
-            DiagnosticResult.self
+            DiagnosticResult.self,
+            ErrorLogEntry.self
         ])
 
         // Use versioned store name to handle schema migrations cleanly
         // Bump this version when schema changes significantly
-        let storeName = "IGA_v2.store"
+        let storeName = "IGA_v3.store"
 
         let configuration: ModelConfiguration
         if inMemory {
@@ -327,6 +328,79 @@ final class DataStore {
     /// Insert a diagnostic result
     func insertDiagnosticResult(_ result: DiagnosticResult) {
         modelContext.insert(result)
+    }
+
+    // MARK: - Error Log
+
+    /// Fetch all error log entries
+    func fetchErrorLogEntries() throws -> [ErrorLogEntry] {
+        let descriptor = FetchDescriptor<ErrorLogEntry>(
+            sortBy: [SortDescriptor(\.timestamp, order: .reverse)]
+        )
+        return try modelContext.fetch(descriptor)
+    }
+
+    /// Fetch unreviewed error log entries
+    func fetchUnreviewedErrors() throws -> [ErrorLogEntry] {
+        let descriptor = FetchDescriptor<ErrorLogEntry>(
+            predicate: #Predicate { !$0.hasReviewed },
+            sortBy: [SortDescriptor(\.timestamp, order: .reverse)]
+        )
+        return try modelContext.fetch(descriptor)
+    }
+
+    /// Fetch errors by subskill
+    func fetchErrors(subskillID: String) throws -> [ErrorLogEntry] {
+        let descriptor = FetchDescriptor<ErrorLogEntry>(
+            predicate: #Predicate { $0.subskillID == subskillID },
+            sortBy: [SortDescriptor(\.timestamp, order: .reverse)]
+        )
+        return try modelContext.fetch(descriptor)
+    }
+
+    /// Fetch errors by type
+    func fetchErrors(type: ErrorType) throws -> [ErrorLogEntry] {
+        let typeRaw = type.rawValue
+        let descriptor = FetchDescriptor<ErrorLogEntry>(
+            predicate: #Predicate { $0.errorTypeRaw == typeRaw },
+            sortBy: [SortDescriptor(\.timestamp, order: .reverse)]
+        )
+        return try modelContext.fetch(descriptor)
+    }
+
+    /// Insert an error log entry
+    func insertErrorLogEntry(_ entry: ErrorLogEntry) {
+        modelContext.insert(entry)
+    }
+
+    /// Calculate error statistics
+    func calculateErrorStats() throws -> ErrorStats {
+        let allErrors = try fetchErrorLogEntries()
+
+        var byType: [ErrorType: Int] = [:]
+        var bySubskill: [String: Int] = [:]
+        var reviewedCount = 0
+        var retriedCorrectCount = 0
+
+        for error in allErrors {
+            byType[error.errorType, default: 0] += 1
+            bySubskill[error.subskillID, default: 0] += 1
+
+            if error.hasReviewed {
+                reviewedCount += 1
+                if error.retriedCorrectly == true {
+                    retriedCorrectCount += 1
+                }
+            }
+        }
+
+        return ErrorStats(
+            totalErrors: allErrors.count,
+            reviewedCount: reviewedCount,
+            retriedCorrectCount: retriedCorrectCount,
+            byType: byType,
+            bySubskill: bySubskill
+        )
     }
 
     // MARK: - Save

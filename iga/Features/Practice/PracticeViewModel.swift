@@ -283,6 +283,15 @@ final class PracticeViewModel {
         do {
             dataStore.insertAttempt(attempt)
 
+            // Log error if incorrect
+            if !isCorrect {
+                let errorEntry = ErrorLogEntry.fromAttempt(
+                    attempt,
+                    correctAnswer: question.correctIndex
+                )
+                dataStore.insertErrorLogEntry(errorEntry)
+            }
+
             // Update user progress
             let progress = try dataStore.fetchOrCreateUserProgress()
             progress.recordAttempt(
