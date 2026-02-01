@@ -30,11 +30,19 @@ final class PracticeViewModel {
     var elapsedSeconds: Int = 0
     private(set) var isTimed: Bool = false
 
+    // IRT/BKT state
+    private var currentTheta: Double = 0.0
+    private var sessionHistory: SessionHistory = SessionHistory()
+    private var masteryStates: [String: SubskillMasteryState] = [:]
+    private var allQuestions: [String: Question] = [:]
+    private var questionStartTime: Date?
+
     // MARK: - Dependencies
 
     private let dataStore: DataStore
     private let inferenceClient: InferenceClient
-    private let adaptiveEngine: AdaptiveEngine
+    private let irtEngine: IRTEngine
+    private let bktEngine: BKTEngine
 
     // MARK: - Configuration
 
@@ -42,17 +50,20 @@ final class PracticeViewModel {
     var sectionFilter: QuestionSection?
     var topicFilters: [String] = []
     var questionCount: Int = AppConfig.questionsPerSession
+    var subskillFilter: String?
 
     // MARK: - Initialization
 
     init(
         dataStore: DataStore = .shared,
         inferenceClient: InferenceClient? = nil,
-        adaptiveEngine: AdaptiveEngine = AdaptiveEngine()
+        irtEngine: IRTEngine = IRTEngine(),
+        bktEngine: BKTEngine = BKTEngine()
     ) {
         self.dataStore = dataStore
         self.inferenceClient = inferenceClient ?? CerebrasInferenceClient.fromConfig() ?? MockInferenceClient()
-        self.adaptiveEngine = adaptiveEngine
+        self.irtEngine = irtEngine
+        self.bktEngine = bktEngine
     }
 
     // MARK: - Session Management
@@ -61,30 +72,62 @@ final class PracticeViewModel {
     func startSession() async {
         do {
             // Load questions from store
-            var allQuestions: [Question]
+            var questionList: [Question]
 
             if let section = sectionFilter {
-                allQuestions = try dataStore.fetchQuestions(section: section)
+                questionList = try dataStore.fetchQuestions(section: section)
             } else if !topicFilters.isEmpty {
-                allQuestions = try dataStore.fetchQuestions(topics: topicFilters)
+                questionList = try dataStore.fetchQuestions(topics: topicFilters)
             } else {
-                allQuestions = try dataStore.fetchQuestions()
+                questionList = try dataStore.fetchQuestions()
             }
 
-            // Use adaptive engine to select questions
-            var selected: [Question] = []
-            var recentIds: Set<String> = []
+            // Filter by subskill if specified
+            if let subskill = subskillFilter {
+                questionList = questionList.filter { $0.subskillIDs.contains(subskill) || $0.primarySubskill == subskill }
+            }
 
-            for _ in 0..<min(questionCount, allQuestions.count) {
-                if let next = await adaptiveEngine.selectNextQuestion(from: allQuestions, avoiding: recentIds) {
+            // Build question lookup
+            allQuestions = Dictionary(uniqueKeysWithValues: questionList.map { ($0.id, $0) })
+
+            // Load mastery states for initial theta estimation
+            let states = try dataStore.fetchOrCreateAllMasteryStates()
+            masteryStates = Dictionary(uniqueKeysWithValues: states.map { ($0.subskillID, $0) })
+
+            // Estimate initial theta from mastery states
+            currentTheta = estimateInitialTheta()
+
+            // Reset session history
+            sessionHistory = SessionHistory()
+
+            // Map SessionMode to IRTSelectionMode
+            let irtMode: IRTSelectionMode
+            switch mode {
+            case .timed:
+                irtMode = .learning
+            case .untimed:
+                irtMode = .learning
+            case .review:
+                irtMode = .review
+            }
+
+            // Use IRT engine to select questions adaptively
+            var selected: [Question] = []
+            for _ in 0..<min(questionCount, questionList.count) {
+                if let next = await irtEngine.selectNextItem(
+                    theta: currentTheta,
+                    availableItems: questionList,
+                    sessionHistory: sessionHistory,
+                    mode: irtMode
+                ) {
                     selected.append(next)
-                    recentIds.insert(next.id)
+                    sessionHistory.seenQuestionIDs.insert(next.id)
                 }
             }
 
-            // Fallback to random if adaptive didn't return enough
+            // Fallback to random if IRT didn't return enough
             if selected.count < questionCount {
-                let remaining = allQuestions.filter { !recentIds.contains($0.id) }
+                let remaining = questionList.filter { !sessionHistory.seenQuestionIDs.contains($0.id) }
                 selected.append(contentsOf: remaining.shuffled().prefix(questionCount - selected.count))
             }
 
@@ -109,6 +152,7 @@ final class PracticeViewModel {
             hasSubmitted = false
             explanation = nil
             isSessionComplete = false
+            questionStartTime = Date()
 
             // Timer setup
             isTimed = mode == .timed
@@ -122,6 +166,35 @@ final class PracticeViewModel {
         }
     }
 
+    /// Estimate initial theta from mastery states
+    private func estimateInitialTheta() -> Double {
+        let relevantStates: [SubskillMasteryState]
+
+        if let subskill = subskillFilter,
+           let state = masteryStates[subskill] {
+            relevantStates = [state]
+        } else if let section = sectionFilter {
+            let subskills = section == .quant ? Subskill.quantSubskills : Subskill.verbalSubskills
+            relevantStates = subskills.compactMap { masteryStates[$0.rawValue] }
+        } else {
+            relevantStates = Array(masteryStates.values)
+        }
+
+        guard !relevantStates.isEmpty else { return 0.0 }
+
+        // Weight by attempt count (more data = more reliable)
+        var weightedSum = 0.0
+        var totalWeight = 0.0
+
+        for state in relevantStates {
+            let weight = Double(max(1, state.attemptCount))
+            weightedSum += state.thetaEstimate * weight
+            totalWeight += weight
+        }
+
+        return totalWeight > 0 ? weightedSum / totalWeight : 0.0
+    }
+
     // MARK: - Answer Handling
 
     /// Select an answer choice
@@ -133,23 +206,84 @@ final class PracticeViewModel {
     /// Submit the current answer
     func submitAnswer() async {
         guard let question = currentQuestion,
-              let answer = selectedAnswer else { return }
+              let answer = selectedAnswer,
+              let sess = session else { return }
 
         hasSubmitted = true
 
+        // Calculate response time
+        let responseTimeMs = Int((Date().timeIntervalSince(questionStartTime ?? Date())) * 1000)
+
         // Record in session
-        session?.recordAnswer(
+        sess.recordAnswer(
             questionIndex: currentIndex,
             answerIndex: answer,
             timeSpent: elapsedSeconds
         )
 
-        // Update adaptive engine
         let isCorrect = question.isCorrect(answer)
-        await adaptiveEngine.recordAnswer(question: question, wasCorrect: isCorrect)
+        let subskillID = question.primarySubskill
 
-        // Update user progress
+        // Get current mastery state for theta tracking
+        let masteryState = masteryStates[subskillID]
+        let thetaBefore = masteryState?.thetaEstimate ?? currentTheta
+        let pKnownBefore = masteryState?.pKnown ?? 0.5
+
+        // Create attempt record
+        let attempt = Attempt(
+            questionID: question.id,
+            sessionID: UUID(uuidString: sess.id) ?? UUID(),
+            selectedAnswer: answer,
+            isCorrect: isCorrect,
+            responseTimeMs: responseTimeMs,
+            subskillID: subskillID,
+            thetaBefore: thetaBefore,
+            pKnownBefore: pKnownBefore
+        )
+
+        // Create attempt summary for IRT
+        let attemptSummary = AttemptSummary(from: attempt)
+        sessionHistory.recordAttempt(attemptSummary, question: question)
+
+        // Update theta estimate using IRT
+        let (newTheta, newSE) = await irtEngine.estimateAbility(
+            attempts: sessionHistory.attempts,
+            questions: allQuestions,
+            prior: (currentTheta, 1.0)
+        )
+        currentTheta = newTheta
+
+        // Update mastery state using BKT
+        if var state = masteryStates[subskillID] {
+            let (newPKnown, newPLearn) = await bktEngine.updateMastery(
+                state: state,
+                correct: isCorrect,
+                responseTimeMs: responseTimeMs,
+                expectedTimeMs: question.timeBenchmarkSeconds * 1000,
+                timestamp: Date()
+            )
+
+            // Update state
+            state.thetaEstimate = newTheta
+            state.thetaSE = newSE
+            state.pKnown = newPKnown
+            state.pLearn = newPLearn
+            state.attemptCount += 1
+            if isCorrect { state.correctCount += 1 }
+            state.lastPracticed = Date()
+
+            masteryStates[subskillID] = state
+
+            // Update attempt with after values
+            attempt.thetaAfter = newTheta
+            attempt.pKnownAfter = newPKnown
+        }
+
+        // Persist to database
         do {
+            dataStore.insertAttempt(attempt)
+
+            // Update user progress
             let progress = try dataStore.fetchOrCreateUserProgress()
             progress.recordAttempt(
                 section: question.section,
@@ -157,6 +291,7 @@ final class PracticeViewModel {
                 isCorrect: isCorrect,
                 timeSpent: elapsedSeconds
             )
+
             try dataStore.save()
         } catch {
             print("Failed to update progress: \(error)")
@@ -212,6 +347,7 @@ final class PracticeViewModel {
         hasSubmitted = false
         explanation = nil
         elapsedSeconds = 0
+        questionStartTime = Date()
 
         if isTimed {
             remainingSeconds = AppConfig.defaultQuestionTimeLimit
@@ -249,7 +385,14 @@ final class PracticeViewModel {
     /// Complete the session
     private func completeSession() {
         session?.completedAt = Date()
-        try? dataStore.save()
+
+        // Persist changes (SwiftData tracks mastery state changes automatically)
+        do {
+            try dataStore.save()
+        } catch {
+            print("Failed to save session: \(error)")
+        }
+
         isSessionComplete = true
     }
 
@@ -293,6 +436,26 @@ final class PracticeViewModel {
     /// Dismiss error
     func dismissError() {
         error = nil
+    }
+
+    /// Current estimated theta (ability level)
+    var estimatedTheta: Double {
+        currentTheta
+    }
+
+    /// Get estimated GRE score for a section
+    func estimatedScore(for section: QuestionSection) async -> (score: Int, lower: Int, upper: Int) {
+        await irtEngine.estimateScaledScore(theta: currentTheta, section: section)
+    }
+
+    /// Get mastery level for a subskill
+    func masteryLevel(for subskillID: String) -> MasteryLevel? {
+        masteryStates[subskillID]?.masteryLevel
+    }
+
+    /// Get all mastery states for display
+    var allMasteryStates: [SubskillMasteryState] {
+        Array(masteryStates.values).sorted { $0.subskillID < $1.subskillID }
     }
 }
 

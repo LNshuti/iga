@@ -7,6 +7,10 @@ import SwiftUI
 /// Main tab-based navigation for the IGA app
 struct HomeView: View {
     @State private var selectedTab: Tab = .practice
+    @State private var showDiagnostic = false
+    @State private var userProgress: UserProgress?
+    @State private var diagnosticViewModel: DiagnosticViewModel?
+    @State private var hasSkippedDiagnostic = false
 
     enum Tab: Hashable {
         case practice
@@ -46,6 +50,93 @@ struct HomeView: View {
                 .tag(Tab.progress)
         }
         .tint(Theme.Colors.primaryFallback)
+        .task {
+            await checkDiagnosticStatus()
+        }
+        .sheet(isPresented: $showDiagnostic) {
+            if let viewModel = diagnosticViewModel {
+                DiagnosticView(viewModel: viewModel)
+            }
+        }
+        .overlay {
+            if shouldShowDiagnosticPrompt {
+                diagnosticPromptOverlay
+            }
+        }
+    }
+
+    /// Check if user needs to complete diagnostic
+    private var shouldShowDiagnosticPrompt: Bool {
+        guard let progress = userProgress else { return false }
+        return !progress.hasCompletedDiagnostic && !showDiagnostic && !hasSkippedDiagnostic
+    }
+
+    /// Prompt overlay for diagnostic
+    private var diagnosticPromptOverlay: some View {
+        ZStack {
+            Color.black.opacity(0.5)
+                .ignoresSafeArea()
+
+            VStack(spacing: Theme.Spacing.lg) {
+                Image(systemName: "brain.head.profile")
+                    .font(.system(size: 60))
+                    .foregroundStyle(Theme.Colors.primary)
+
+                Text("Welcome to IGA!")
+                    .font(Theme.Typography.title)
+
+                Text("Before you start practicing, let's assess your current GRE skill level. This 25-35 minute diagnostic will create a personalized study plan just for you.")
+                    .font(Theme.Typography.body)
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal)
+
+                VStack(spacing: Theme.Spacing.md) {
+                    Button {
+                        startDiagnostic()
+                    } label: {
+                        Text("Take Diagnostic")
+                            .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .controlSize(.large)
+
+                    Button {
+                        skipDiagnostic()
+                    } label: {
+                        Text("Skip for now")
+                            .foregroundStyle(.secondary)
+                    }
+                }
+                .padding(.horizontal)
+            }
+            .padding(Theme.Spacing.xl)
+            .background(Theme.Colors.background)
+            .cornerRadius(Theme.CornerRadius.large)
+            .padding(Theme.Spacing.xl)
+        }
+    }
+
+    /// Check if user has completed diagnostic
+    private func checkDiagnosticStatus() async {
+        do {
+            userProgress = try DataStore.shared.fetchOrCreateUserProgress()
+        } catch {
+            print("Failed to fetch user progress: \(error)")
+        }
+    }
+
+    /// Start the diagnostic assessment
+    private func startDiagnostic() {
+        diagnosticViewModel = DiagnosticViewModel()
+        showDiagnostic = true
+    }
+
+    /// Skip diagnostic for now
+    private func skipDiagnostic() {
+        // User chose to skip - dismiss the prompt for this session
+        // They can still take the diagnostic later from the progress tab
+        hasSkippedDiagnostic = true
     }
 }
 
@@ -55,6 +146,9 @@ struct HomeView: View {
 struct StatsView: View {
     @State private var progress: UserProgress?
     @State private var isLoading = true
+    @State private var showDiagnostic = false
+    @State private var diagnosticViewModel: DiagnosticViewModel?
+    @State private var latestDiagnostic: DiagnosticResult?
 
     var body: some View {
         NavigationStack {
@@ -75,10 +169,18 @@ struct StatsView: View {
         .task {
             await loadProgress()
         }
+        .sheet(isPresented: $showDiagnostic) {
+            if let viewModel = diagnosticViewModel {
+                DiagnosticView(viewModel: viewModel)
+            }
+        }
     }
 
     private func progressContent(_ progress: UserProgress) -> some View {
         VStack(spacing: Theme.Spacing.lg) {
+            // Diagnostic card
+            diagnosticCard(progress)
+
             // Overall stats card
             VStack(spacing: Theme.Spacing.md) {
                 HStack {
@@ -242,10 +344,95 @@ struct StatsView: View {
         isLoading = true
         do {
             progress = try DataStore.shared.fetchOrCreateUserProgress()
+            latestDiagnostic = try DataStore.shared.fetchLatestDiagnosticResult()
         } catch {
             progress = nil
+            latestDiagnostic = nil
         }
         isLoading = false
+    }
+
+    /// Diagnostic status card
+    private func diagnosticCard(_ progress: UserProgress) -> some View {
+        VStack(spacing: Theme.Spacing.md) {
+            HStack {
+                Text("Diagnostic Assessment")
+                    .font(Theme.Typography.title3)
+                Spacer()
+
+                if progress.hasCompletedDiagnostic {
+                    Image(systemName: "checkmark.circle.fill")
+                        .foregroundStyle(Theme.Colors.success)
+                }
+            }
+
+            if let diagnostic = latestDiagnostic {
+                // Show diagnostic results
+                HStack(spacing: Theme.Spacing.xl) {
+                    VStack(spacing: Theme.Spacing.xs) {
+                        Text("\(diagnostic.estimatedQuantScore)")
+                            .font(.system(size: 32, weight: .bold, design: .rounded))
+                            .foregroundStyle(Theme.Colors.quant)
+                        Text("Quant")
+                            .font(Theme.Typography.caption)
+                            .foregroundStyle(.secondary)
+                    }
+
+                    VStack(spacing: Theme.Spacing.xs) {
+                        Text("\(diagnostic.estimatedVerbalScore)")
+                            .font(.system(size: 32, weight: .bold, design: .rounded))
+                            .foregroundStyle(Theme.Colors.verbal)
+                        Text("Verbal")
+                            .font(Theme.Typography.caption)
+                            .foregroundStyle(.secondary)
+                    }
+
+                    VStack(spacing: Theme.Spacing.xs) {
+                        Text("\(diagnostic.estimatedTotalScore)")
+                            .font(.system(size: 32, weight: .bold, design: .rounded))
+                            .foregroundStyle(Theme.Colors.primary)
+                        Text("Total")
+                            .font(Theme.Typography.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+
+                if progress.diagnosticIsStale {
+                    HStack(spacing: Theme.Spacing.xs) {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .foregroundStyle(Theme.Colors.warning)
+                        Text("Your diagnostic is over 30 days old. Consider retaking it.")
+                            .font(Theme.Typography.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+
+                Button("Retake Diagnostic") {
+                    diagnosticViewModel = DiagnosticViewModel()
+                    showDiagnostic = true
+                }
+                .buttonStyle(.bordered)
+            } else {
+                // Prompt to take diagnostic
+                VStack(spacing: Theme.Spacing.sm) {
+                    Image(systemName: "brain.head.profile")
+                        .font(.system(size: 40))
+                        .foregroundStyle(Theme.Colors.primary)
+
+                    Text("Take the diagnostic assessment to get personalized score estimates and study recommendations.")
+                        .font(Theme.Typography.body)
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.center)
+
+                    Button("Take Diagnostic") {
+                        diagnosticViewModel = DiagnosticViewModel()
+                        showDiagnostic = true
+                    }
+                    .buttonStyle(.borderedProminent)
+                }
+            }
+        }
+        .cardStyle()
     }
 }
 

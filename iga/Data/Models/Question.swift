@@ -63,6 +63,29 @@ final class Question {
     /// When the question was added
     var createdAt: Date
 
+    // MARK: - IRT Parameters
+
+    /// Subskill IDs this question tests (e.g., ["Q-AL", "Q-AR"])
+    var subskillIDs: [String]
+
+    /// IRT discrimination parameter (a): 0.5-2.5 typical
+    /// Higher = better at differentiating ability levels
+    var irtA: Double
+
+    /// IRT difficulty parameter (b): -3 to +3 typical
+    /// Higher = harder question
+    var irtB: Double
+
+    /// IRT guessing parameter (c): ~1/choices
+    /// Probability of guessing correctly
+    var irtC: Double
+
+    /// Expected solve time in seconds
+    var timeBenchmarkSeconds: Int
+
+    /// Rationale for each distractor (choiceIndex as string → explanation)
+    var distractorRationales: [String: String]
+
     /// Computed property for section enum
     var section: QuestionSection {
         get { QuestionSection(rawValue: sectionRaw) ?? .quant }
@@ -79,7 +102,13 @@ final class Question {
         difficulty: Int = 3,
         source: String = "seed",
         rationale: String? = nil,
-        createdAt: Date = Date()
+        createdAt: Date = Date(),
+        subskillIDs: [String] = [],
+        irtA: Double = 1.0,
+        irtB: Double = 0.0,
+        irtC: Double? = nil,
+        timeBenchmarkSeconds: Int = 90,
+        distractorRationales: [String: String] = [:]
     ) {
         self.id = id
         self.sectionRaw = section.rawValue
@@ -91,6 +120,14 @@ final class Question {
         self.source = source
         self.rationale = rationale
         self.createdAt = createdAt
+        self.subskillIDs = subskillIDs
+        self.irtA = irtA
+        // Map difficulty (1-5) to IRT b parameter (-2 to +2) if not specified
+        self.irtB = irtB == 0.0 ? Double(difficulty - 3) * 0.75 : irtB
+        // Default c to 1/choices if not specified
+        self.irtC = irtC ?? (choices.isEmpty ? 0.2 : 1.0 / Double(choices.count))
+        self.timeBenchmarkSeconds = timeBenchmarkSeconds
+        self.distractorRationales = distractorRationales
     }
 
     /// Check if a given answer index is correct
@@ -104,6 +141,86 @@ final class Question {
             return ""
         }
         return choices[correctIndex]
+    }
+
+    // MARK: - IRT Helpers
+
+    /// Primary subskill (first in list, or inferred from topics)
+    var primarySubskill: String {
+        if let first = subskillIDs.first {
+            return first
+        }
+        // Fallback: infer from section and topics
+        return inferSubskillFromTopics()
+    }
+
+    /// Primary subskill as enum
+    var primarySubskillEnum: Subskill? {
+        Subskill(rawValue: primarySubskill)
+    }
+
+    /// Infer subskill from topics (for legacy questions without subskillIDs)
+    private func inferSubskillFromTopics() -> String {
+        let topicSet = Set(topics.map { $0.lowercased() })
+
+        switch section {
+        case .quant:
+            if topicSet.contains("arithmetic") || topicSet.contains("number-properties") ||
+               topicSet.contains("fractions") || topicSet.contains("percents") {
+                return Subskill.qArithmetic.rawValue
+            }
+            if topicSet.contains("algebra") || topicSet.contains("linear-equations") ||
+               topicSet.contains("quadratic") || topicSet.contains("functions") {
+                return Subskill.qAlgebra.rawValue
+            }
+            if topicSet.contains("geometry") || topicSet.contains("triangles") ||
+               topicSet.contains("circles") || topicSet.contains("coordinate") {
+                return Subskill.qGeometry.rawValue
+            }
+            if topicSet.contains("data") || topicSet.contains("statistics") ||
+               topicSet.contains("probability") || topicSet.contains("graphs") {
+                return Subskill.qDataAnalysis.rawValue
+            }
+            // Default for quant
+            return Subskill.qWordProblems.rawValue
+
+        case .verbal:
+            if topicSet.contains("sentence-equivalence") || topicSet.contains("se") {
+                return Subskill.vSentenceEquiv.rawValue
+            }
+            if topicSet.contains("text-completion") || topicSet.contains("tc") ||
+               topicSet.contains("vocabulary") {
+                return Subskill.vTextCompletion.rawValue
+            }
+            if topicSet.contains("reading-comprehension") || topicSet.contains("rc") {
+                // Could be either RC subskill, default to detail
+                return Subskill.vRCDetail.rawValue
+            }
+            // Default for verbal
+            return Subskill.vTextCompletion.rawValue
+
+        case .awa:
+            // AWA doesn't map to these subskills
+            return ""
+        }
+    }
+
+    /// Calculate probability of correct response given ability theta
+    func probabilityCorrect(theta: Double) -> Double {
+        let exponent = -irtA * (theta - irtB)
+        return irtC + (1 - irtC) / (1 + exp(exponent))
+    }
+
+    /// Calculate Fisher information at given theta
+    func fisherInformation(theta: Double) -> Double {
+        let p = probabilityCorrect(theta: theta)
+        guard p > irtC && p < 1 else { return 0 }
+
+        let pMinusC = p - irtC
+        let oneMinusC = 1 - irtC
+        let q = 1 - p
+
+        return pow(irtA, 2) * pow(pMinusC / oneMinusC, 2) * (q / p)
     }
 }
 
@@ -121,6 +238,14 @@ struct QuestionData: Codable {
     let source: String
     let rationale: String?
 
+    // Optional IRT parameters (for calibrated questions)
+    let subskillIDs: [String]?
+    let irtA: Double?
+    let irtB: Double?
+    let irtC: Double?
+    let timeBenchmarkSeconds: Int?
+    let distractorRationales: [String: String]?
+
     func toQuestion() -> Question {
         Question(
             id: id,
@@ -131,7 +256,13 @@ struct QuestionData: Codable {
             topics: topics,
             difficulty: difficulty,
             source: source,
-            rationale: rationale
+            rationale: rationale,
+            subskillIDs: subskillIDs ?? [],
+            irtA: irtA ?? 1.0,
+            irtB: irtB ?? 0.0,
+            irtC: irtC,
+            timeBenchmarkSeconds: timeBenchmarkSeconds ?? 90,
+            distractorRationales: distractorRationales ?? [:]
         )
     }
 }

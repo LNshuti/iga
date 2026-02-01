@@ -47,6 +47,14 @@ final class UserProgress {
     /// When the user started
     var createdAt: Date
 
+    // MARK: - Diagnostic Tracking
+
+    /// When the diagnostic was completed (nil = not yet taken)
+    var diagnosticCompletedAt: Date?
+
+    /// ID of the most recent diagnostic result
+    var lastDiagnosticID: UUID?
+
     init(
         id: String = "default-user",
         totalAttempted: Int = 0,
@@ -62,7 +70,9 @@ final class UserProgress {
         verbalAttempted: Int = 0,
         verbalCorrect: Int = 0,
         vocabMastered: Int = 0,
-        createdAt: Date = Date()
+        createdAt: Date = Date(),
+        diagnosticCompletedAt: Date? = nil,
+        lastDiagnosticID: UUID? = nil
     ) {
         self.id = id
         self.totalAttempted = totalAttempted
@@ -79,6 +89,8 @@ final class UserProgress {
         self.verbalCorrect = verbalCorrect
         self.vocabMastered = vocabMastered
         self.createdAt = createdAt
+        self.diagnosticCompletedAt = diagnosticCompletedAt
+        self.lastDiagnosticID = lastDiagnosticID
     }
 
     // MARK: - Computed Properties
@@ -117,7 +129,30 @@ final class UserProgress {
         topicRatings.sorted { $0.value > $1.value }.prefix(5).map { $0.key }
     }
 
+    /// Whether the user has completed the diagnostic
+    var hasCompletedDiagnostic: Bool {
+        diagnosticCompletedAt != nil
+    }
+
+    /// Days since diagnostic was taken
+    var daysSinceDiagnostic: Int? {
+        guard let completedAt = diagnosticCompletedAt else { return nil }
+        return Calendar.current.dateComponents([.day], from: completedAt, to: Date()).day
+    }
+
+    /// Whether the diagnostic is stale (>30 days old)
+    var diagnosticIsStale: Bool {
+        guard let days = daysSinceDiagnostic else { return false }
+        return days > 30
+    }
+
     // MARK: - Updates
+
+    /// Record diagnostic completion
+    func recordDiagnosticCompletion(diagnosticID: UUID) {
+        diagnosticCompletedAt = Date()
+        lastDiagnosticID = diagnosticID
+    }
 
     /// Record a question attempt
     func recordAttempt(
