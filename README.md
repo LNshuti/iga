@@ -1,4 +1,4 @@
-# IGA - Intelligent GRE Assistant
+# IGA 
 
 IGA is an AI-powered iOS application for GRE preparation, leveraging Cerebras-backed ultra-fast inference to deliver personalized tutoring, adaptive practice sessions, and intelligent vocabulary learning.
 
