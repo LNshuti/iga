@@ -22,6 +22,10 @@ settings:
     ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
     ENABLE_PREVIEWS: YES
 
+configFiles:
+  Debug: iga/Config/Debug.xcconfig
+  Release: iga/Config/Debug.xcconfig
+
 configs:
   Debug:
     settings:

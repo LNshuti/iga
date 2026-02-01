@@ -32,6 +32,7 @@
 		BCF27EF701A8C630260CD021 /* SeedDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E2A59F6CDCE6B02B6E5C54 /* SeedDataTests.swift */; };
 		C4FD6E8D6E541A610C62AD26 /* vocab.json in Resources */ = {isa = PBXBuildFile; fileRef = 0FCC0666F2E10414A40AB59F /* vocab.json */; };
 		C51F3118E10A59EB19167CC2 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33D6BF19F9590D525090AF8 /* AppConfig.swift */; };
+		C598F03E79E1E878C8EB620F /* AppIcon.svg in Resources */ = {isa = PBXBuildFile; fileRef = FF0A51E7F6EA0218C869B885 /* AppIcon.svg */; };
 		CB90F9182CD4130DA498B9A0 /* questions.json in Resources */ = {isa = PBXBuildFile; fileRef = 084F9F32E859997857C4FE05 /* questions.json */; };
 		CC5F72EE8C4BF983D1A9CA92 /* PromptBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB0460DFDF1DDB6ED2C30F7 /* PromptBuilderTests.swift */; };
 		D2DFF0E3DDA07104E8189DD4 /* VocabWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AA0A3579C09EAC25A37FAD /* VocabWord.swift */; };
@@ -112,6 +113,8 @@
 		F2AA0A3579C09EAC25A37FAD /* VocabWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabWord.swift; sourceTree = "<group>"; };
 		F2F2CCCD72C6824AB7B83D69 /* iga.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iga.xcdatamodel; sourceTree = "<group>"; };
 		FB41A25D19CFCBDE7971013B /* InferenceClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InferenceClient.swift; sourceTree = "<group>"; };
+		FF0A51E7F6EA0218C869B885 /* AppIcon.svg */ = {isa = PBXFileReference; path = AppIcon.svg; sourceTree = "<group>"; };
+		FFA73DA436BD1E30BDE0536A /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -156,6 +159,7 @@
 		14532FEB5E16A03852327CE4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				FF0A51E7F6EA0218C869B885 /* AppIcon.svg */,
 				20C1B0CFB2DFAA629F740DA4 /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -205,6 +209,15 @@
 				BB85E82239CA2A14001D9956 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		3CF396FE89211C2C9629E5A7 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				FFA73DA436BD1E30BDE0536A /* Debug.xcconfig */,
+			);
+			name = Config;
+			path = iga/Config;
 			sourceTree = "<group>";
 		};
 		45C59CD942A59E883D8BA08F /* Models */ = {
@@ -308,6 +321,7 @@
 		CD1D22706DAA9634122F9A97 = {
 			isa = PBXGroup;
 			children = (
+				3CF396FE89211C2C9629E5A7 /* Config */,
 				088415383EBAD6E3E48E86DC /* IGA */,
 				8B19F9FAABF1F9B32A5D400D /* Tests */,
 				250A208CEF6A2801316F8DA4 /* Products */,
@@ -449,6 +463,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C598F03E79E1E878C8EB620F /* AppIcon.svg in Resources */,
 				E5C057BC7BEBE583D0B39488 /* Assets.xcassets in Resources */,
 				9EC7741B3D4C032E618DE3C0 /* Preview Assets.xcassets in Resources */,
 				CB90F9182CD4130DA498B9A0 /* questions.json in Resources */,
@@ -526,6 +541,7 @@
 /* Begin XCBuildConfiguration section */
 		55C0AA1487A46376ADA27200 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FFA73DA436BD1E30BDE0536A /* Debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -624,6 +640,7 @@
 		};
 		6C7B7AE1DD40D876910DD076 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FFA73DA436BD1E30BDE0536A /* Debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
