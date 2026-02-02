@@ -533,7 +533,7 @@
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					E7FA8993FBAEEDBA61F771CB = {
-						DevelopmentTeam = "";
+						DevelopmentTeam = 7Q5TP34Y25;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -741,7 +741,7 @@
 				CODE_SIGN_ENTITLEMENTS = IGA/IGA.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 7Q5TP34Y25;
 				INFOPLIST_FILE = IGA/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = IGA;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
@@ -833,7 +833,7 @@
 				CODE_SIGN_ENTITLEMENTS = IGA/IGA.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 7Q5TP34Y25;
 				INFOPLIST_FILE = IGA/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = IGA;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";

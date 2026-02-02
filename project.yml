@@ -54,7 +54,7 @@ targets:
         INFOPLIST_KEY_CFBundleDisplayName: "IGA"
         INFOPLIST_KEY_LSApplicationCategoryType: "public.app-category.education"
         CODE_SIGN_STYLE: Automatic
-        DEVELOPMENT_TEAM: ""
+        DEVELOPMENT_TEAM: 7Q5TP34Y25
         PRODUCT_NAME: "$(TARGET_NAME)"
       configs:
         Debug:
